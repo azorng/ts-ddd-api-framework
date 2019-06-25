@@ -1,6 +1,7 @@
 "use strict";
+// Dependecies needed for every route
 Object.defineProperty(exports, "__esModule", { value: true });
 var express_1 = require("express");
 exports.Router = express_1.Router;
-var expressRouteResolver_1 = require("~/interfaces/utils/expressRouteResolver");
-exports.expressRouteResolver = expressRouteResolver_1.default;
+var routeResolver_1 = require("~/interfaces/utils/routeResolver");
+exports.routeResolver = routeResolver_1.default;

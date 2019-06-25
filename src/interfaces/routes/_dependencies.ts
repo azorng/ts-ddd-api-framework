@@ -1,3 +1,4 @@
-export { Router } from 'express'
+// Dependecies needed for every route
 
-export { default as expressRouteResolver } from '~/interfaces/utils/expressRouteResolver'
+export { Router } from 'express'
+export { default as routeResolver } from '~/interfaces/utils/routeResolver'

@@ -1,10 +1,13 @@
 import * as ui from '~/interfaces/routes/_dependencies'
 
-const { userController } = require('~/interfaces/controllers')
+import UserController from '~/interfaces/controllers/user'
+
+const userController = new UserController();
 
 export default (api: ui.Router): ui.Router => {
     return api
-        .get('/user', ui.expressRouteResolver(userController.getUser))
-        .get('/user/:user', ui.expressRouteResolver(userController.getUser))
+        .get('/user', ui.routeResolver(userController.getUser))
+        .get('/user/:user', ui.routeResolver(userController.getUser))
 }
+
 

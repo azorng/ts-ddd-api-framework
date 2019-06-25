@@ -6,11 +6,15 @@ var __importStar = (this && this.__importStar) || function (mod) {
     result["default"] = mod;
     return result;
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 const ui = __importStar(require("~/interfaces/routes/_dependencies"));
-const { userController } = require('~/interfaces/controllers');
+const user_1 = __importDefault(require("~/interfaces/controllers/user"));
+const userController = new user_1.default();
 exports.default = (api) => {
     return api
-        .get('/user', ui.expressRouteResolver(userController.getUser))
-        .get('/user/:user', ui.expressRouteResolver(userController.getUser));
+        .get('/user', ui.routeResolver(userController.getUser))
+        .get('/user/:user', ui.routeResolver(userController.getUser));
 };

@@ -1,25 +1,34 @@
-import { Request, Response } from 'express'
-import ExpressResponse from '~/interfaces/utils/response'
+import { Response } from 'express'
+import ResponseTemplate, { ResponseStatus } from '~/interfaces/utils/responseTemplate'
 
 export default class Sender {
-    result: Response;
-    constructor(result: Response) {
-        this.result = result
+    res: Response;
+    constructor(res: Response) {
+        this.res = res
     }
 
-    send(response: ExpressResponse) {
-        const res = response.response
-        this.result
-            // .status(res.status)
-            .json(res)
+    send(response: ResponseTemplate) {
+        this.res
+            .status(statusNameToCode(response.response.status))
+            .json(response.response)
     }
 
     send400(body = {}) {
-        this.result
-            // .status(400)
+        this.res
+            .status(statusNameToCode(ResponseStatus.error))
             .json({
-                // status: 'error',
+                status: ResponseStatus.error,
                 body
             })
     }
+}
+
+const statusNameToCode = (statusName: ResponseStatus): number => {
+    const responseCode: { [key in ResponseStatus]: number } = {
+        [ResponseStatus.success]: 200,
+        [ResponseStatus.error]: 500,
+        [ResponseStatus.fail]: 400
+    }
+
+    return responseCode[statusName]
 }

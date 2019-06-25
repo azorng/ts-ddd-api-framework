@@ -1,18 +1,18 @@
 import { Request, Response } from 'express'
 import ResponseSender from '~/interfaces/utils/responseSender'
-import Res from '~/interfaces/utils/response'
+import ResponseTemplate, { ResponseStatus } from '~/interfaces/utils/responseTemplate'
 import _ from '~/lib'
 
 export default (method: any) => (req: Request, res: Response) => {
-    const params = _getParams(req)
+    const params: object = _getParams(req)
     const sender = new ResponseSender(res)
 
     if (_isValidMethod(method, params)) {
         try {
             const methodResult = _executeMethod(method, params)
-            sender.send(new Res('success', methodResult))
+            sender.send(new ResponseTemplate(ResponseStatus.success, methodResult))
         } catch (err) {
-            sender.send(new Res('fail', err))
+            sender.send(new ResponseTemplate(ResponseStatus.fail, err))
         }
     } else {
         sender.send400()
@@ -20,7 +20,7 @@ export default (method: any) => (req: Request, res: Response) => {
 
 }
 
-const _executeMethod = (method: any, params: any) => method(params)
+const _executeMethod = (method: any, params: object) => method(params)
 
 const _getParams = (req: Request) => {
     let params = !_.isEmpty(req.params) ? req.params
@@ -31,4 +31,4 @@ const _getParams = (req: Request) => {
     return params
 }
 
-const _isValidMethod = (method: any, params: any) => !(!params && method.length > 0) 
+const _isValidMethod = (method: any, params: object) => !(!params && method.length > 0) 
