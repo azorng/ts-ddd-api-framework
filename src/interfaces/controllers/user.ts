@@ -1,5 +1,5 @@
 export default class UserController {
-    getUser({ user }: any) {
+    static getUser({ user }: any) {
         if (user && user == 'good') {
             return 'this user is good'
         } else {
