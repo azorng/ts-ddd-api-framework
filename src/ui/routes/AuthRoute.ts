@@ -1,6 +1,6 @@
 import * as ui from '~/ui/routes/_dependencies'
 
-import AuthController from '~/ui/controllers/auth'
+import AuthController from '~/ui/controllers/AuthController'
 
 export default (api: ui.Router): ui.Router => {
     return api

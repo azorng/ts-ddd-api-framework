@@ -1,18 +1,22 @@
 import EntityBase from '~/domain/EntityBase'
 
-export interface UserProps {
+export type UserProps = {
     username: string,
-    age: number
+    age?: number
 }
 
 export class User extends EntityBase {
     private static MIN_LEGAL_AGE = 21
 
-    constructor(public user: UserProps) {
+    constructor(private user: UserProps) {
         super()
     }
 
     get isLegal(): boolean {
-        return this.user.age >= User.MIN_LEGAL_AGE
+        return this.user.age! >= User.MIN_LEGAL_AGE
+    }
+
+    get username(): string {
+        return this.user.username
     }
 }

@@ -1,7 +1,7 @@
 import express from 'express';
-import Router from '~/ui/router'
+import Router from '~/ui/Router'
 import bodyParser from 'body-parser'
-import session from '~/ui/middlewares/session'
+import session from '~/ui/middlewares/Session'
 
 express()
   .disable('x-powered-by')

@@ -1,5 +1,5 @@
 import session from 'express-session'
-import redisClient from '~/infra/redis/client'
+import redisClient from '~/infra/redis/Client'
 import redisConnect from 'connect-redis'
 
 const Store = redisConnect(session)
