@@ -1,6 +1,6 @@
-import * as ui from '~/interfaces/routes/_dependencies'
+import * as ui from '~/ui/routes/_dependencies'
 
-import UserController from '~/interfaces/controllers/user'
+import UserController from '~/ui/controllers/user'
 
 export default (api: ui.Router): ui.Router => {
     return api

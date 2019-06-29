@@ -1,5 +1,5 @@
 import { Response } from 'express'
-import ResponseTemplate, { ResponseStatus } from '~/interfaces/utils/responseTemplate'
+import ResponseTemplate, { ResponseStatus } from '~/ui/utils/responseTemplate'
 
 export default class Sender {
     res: Response;

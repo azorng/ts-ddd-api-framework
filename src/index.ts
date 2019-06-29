@@ -1,2 +1,2 @@
 import 'module-alias/register'
-import '~/interfaces/server'
+import '~/ui/server'

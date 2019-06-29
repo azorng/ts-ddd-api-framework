@@ -1,6 +1,6 @@
 import { Request, Response } from 'express'
-import ResponseSender from '~/interfaces/utils/responseSender'
-import ResponseTemplate, { ResponseStatus } from '~/interfaces/utils/responseTemplate'
+import ResponseSender from '~/ui/utils/responseSender'
+import ResponseTemplate, { ResponseStatus } from '~/ui/utils/responseTemplate'
 import _ from '~/lib'
 
 export default (method: any) => (req: Request, res: Response) => {
@@ -23,10 +23,13 @@ export default (method: any) => (req: Request, res: Response) => {
 const _executeMethod = (method: any, params: object) => method(params)
 
 const _getParams = (req: Request) => {
+    // Set params from route variables
     let params = !_.isEmpty(req.params) ? req.params
         : !_.isEmpty(req.body) ? req.body
             : {}
-    params.auth = req.get('auth')
+
+    // Inject additional params         
+    params.$session = req.session
 
     return params
 }
