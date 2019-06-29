@@ -1,9 +1,8 @@
-import { Response } from 'express'
 import ResponseTemplate, { ResponseStatus } from '~/ui/utils/responseTemplate'
 
 export default class Sender {
-    res: Response;
-    constructor(res: Response) {
+    res: Http.Response;
+    constructor(res: Http.Response) {
         this.res = res
     }
 

@@ -1,12 +1,10 @@
-import * as ui from '~/ui/routes/_dependencies'
+import routeResolver from '~/ui/utils/routeResolver'
 
 import AuthController from '~/ui/controllers/AuthController'
 
-export default (api: ui.Router): ui.Router => {
+export default (api: Http.Router): Http.Router => {
     return api
-        .get('/auth/:username/:password', ui.routeResolver(AuthController.authenticate))
-        .get('/auth/am-i-logged-in', ui.routeResolver(AuthController.amILoggedIn))
-        .get('/auth/logOut', ui.routeResolver(AuthController.logOut))
+        .get('/auth/:username/:password', routeResolver(AuthController.authenticate))
+        .get('/auth/am-i-logged-in', routeResolver(AuthController.amILoggedIn))
+        .get('/auth/logOut', routeResolver(AuthController.logOut))
 }
-
-

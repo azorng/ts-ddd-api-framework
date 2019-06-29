@@ -1,9 +1,8 @@
-import { Request, Response } from 'express'
 import ResponseSender from '~/ui/utils/responseSender'
 import ResponseTemplate, { ResponseStatus } from '~/ui/utils/responseTemplate'
 import _ from '~/lib'
 
-export default (method: any) => (req: Request, res: Response) => {
+export default (method: any) => (req: Http.Request, res: Http.Response) => {
     const params: object = _getParams(req)
     const sender = new ResponseSender(res)
 
@@ -22,7 +21,7 @@ export default (method: any) => (req: Request, res: Response) => {
 
 const _executeMethod = (method: any, params: object) => method(params)
 
-const _getParams = (req: Request) => {
+const _getParams = (req: Http.Request) => {
     // Set params from route variables
     let params = !_.isEmpty(req.params) ? req.params
         : !_.isEmpty(req.body) ? req.body

@@ -1,12 +1,12 @@
-import * as ui from '~/ui/routes/_dependencies'
+import routeResolver from '~/ui/utils/routeResolver'
 
 import UserController from '~/ui/controllers/UserController'
 
-export default (api: ui.Router): ui.Router => {
+export default (api: Http.Router): Http.Router => {
     return api
-        .get('/user', ui.routeResolver(UserController.getUser))
-        .get('/user/:user', ui.routeResolver(UserController.getUser))
-        .get('/user/create/:username', ui.routeResolver(UserController.createUser))
+        .get('/user', routeResolver(UserController.getUser))
+        .get('/user/:user', routeResolver(UserController.getUser))
+        .get('/user/create/:username', routeResolver(UserController.createUser))
 }
 
 
