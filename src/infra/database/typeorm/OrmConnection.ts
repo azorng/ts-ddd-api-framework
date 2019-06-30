@@ -1,5 +1,5 @@
 import { createConnection, getConnection, getManager, ConnectionOptions } from 'typeorm';
-import UserModel from '~/infra/database/typeorm/models/UserModel'
+import path from 'path'
 
 const conf: ConnectionOptions = {
     name: "default",
@@ -10,7 +10,7 @@ const conf: ConnectionOptions = {
     password: "root",
     database: "test",
     synchronize: true,
-    entities: [UserModel]
+    entities: [path.join(__dirname, '/models/*')]
 }
 
 export const CreateDatabaseConnection = async () => createConnection(conf)
