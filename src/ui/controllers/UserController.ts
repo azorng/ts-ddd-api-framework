@@ -13,8 +13,8 @@ export default class UserController {
 
     static async createUser({ username }: any) {
         const user = new User({
-            username
+            username,
         });
-        return new CreateUser(new UserRepository).create(user)
+        return new CreateUser(new UserRepository()).create(user)
     }
 }

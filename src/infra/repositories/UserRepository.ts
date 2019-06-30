@@ -4,10 +4,7 @@ import { UserModel } from '../database/typeorm/models/UserModel';
 import RepositoryBase from './RepositoryBase';
 
 export default class UserRepository extends RepositoryBase implements IUserRepository {
-    async create(user: User) {
-        let model = new UserModel()
-        model.username = user.username
-
-        return this.database.save(model)
+    async create(user: User): Promise<User> {
+        return this.database.save(new UserModel(user))
     }
 }
