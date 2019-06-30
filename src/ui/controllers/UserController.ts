@@ -3,7 +3,7 @@ import UserRepository from '~/infra/repositories/UserRepository';
 import { User } from '~/domain/User';
 
 export default class UserController {
-    static getUser({ user }: any) {
+    static async getUser({ user }: any) {
         if (user && user == 'good') {
             return 'this user is good'
         } else {
@@ -15,6 +15,6 @@ export default class UserController {
         const user = new User({
             username
         });
-        return await new CreateUser(new UserRepository).create(user)
+        return new CreateUser(new UserRepository).create(user)
     }
 }

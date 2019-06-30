@@ -8,6 +8,6 @@ export default class UserRepository extends RepositoryBase implements IUserRepos
         let model = new UserModel()
         model.username = user.username
 
-        this.database.save(model)
+        return this.database.save(model)
     }
 }

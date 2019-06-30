@@ -8,8 +8,8 @@ export default class CreateUser {
         this.userRepository = userRepository
     }
 
-    create(user: User) {
-        this.userRepository.create(user)
+    async create(user: User) {
+        return this.userRepository.create(user)
     }
     
 }

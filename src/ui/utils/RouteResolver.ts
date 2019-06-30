@@ -7,17 +7,24 @@ export default (method: any) => (req: Http.Request, res: Http.Response) => {
     const sender = new ResponseSender(res)
 
     if (_isValidMethod(method, params)) {
-        try {
-            const methodResult = _executeMethod(method, params)
-            sender.send(new ResponseTemplate(ResponseStatus.success, methodResult))
-        } catch (err) {
-            sender.send(new ResponseTemplate(ResponseStatus.fail, err))
-        }
+        const methodResult = _executeMethod(method, params)
+        _processPromiseResponse(methodResult, sender)
     } else {
         sender.send400()
     }
 
 }
+
+const _processPromiseResponse = (promise: Promise<any>, sender: ResponseSender) => {
+    promise
+        .then(res => {
+            sender.send(new ResponseTemplate(ResponseStatus.success, res))
+        })
+        .catch(error => {
+            sender.send(new ResponseTemplate(ResponseStatus.fail, error))
+        })
+}
+
 
 const _executeMethod = (method: any, params: object) => method(params)
 

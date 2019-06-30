@@ -1,5 +1,5 @@
 export default class AuthController {
-    static authenticate({ username, password, $session }: any) {
+    static async authenticate({ username, password, $session }: any) {
         if (username == 'azorvk' && password == 123) {
             $session.userInfo = {
                 loggedIn: true,
@@ -11,7 +11,7 @@ export default class AuthController {
         }
     }
 
-    static amILoggedIn({ $session }: any) {
+    static async amILoggedIn({ $session }: any) {
         if ($session.userInfo && $session.userInfo.loggedIn) {
             return `you are logged in, welcome back ${$session.userInfo.name}`
         } else {
@@ -19,7 +19,7 @@ export default class AuthController {
         }
     }
 
-    static logOut({ $session }: any) {
+    static async logOut({ $session }: any) {
         $session.userInfo = {}
         return 'logged out :('
     }
