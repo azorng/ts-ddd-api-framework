@@ -1,4 +1,4 @@
-import routeResolver from '~/ui/utils/routeResolver'
+import routeResolver from '~/ui/utils/RouteResolver'
 
 import AuthController from '~/ui/controllers/AuthController'
 
