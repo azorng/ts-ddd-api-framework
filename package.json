@@ -2,22 +2,14 @@
   "name": "tsc-api",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "dist",
   "scripts": {
-    "dev": "tsc --watch & nodemon dist",
-    "b": "ts-node src",
-    "watch": "nodemon -e ts -w ./src -x npm run watch:serve",
-    "c": "nodemon --watch 'src/**/*.ts' --ignore 'src/**/*.spec.ts' --exec 'ts-node' src/index.ts",
-    "watch:serve": "ts-node src/index.ts"
+    "build": "tsc",
+    "dev": "tsc-watch --onSuccess \"node dist\""
   },
-  "author": "",
+  "author": "azorvk",
   "license": "ISC",
   "dependencies": {
-    "@types/connect-redis": "0.0.10",
-    "@types/express": "^4.17.0",
-    "@types/express-session": "^1.15.13",
-    "@types/glob": "^7.1.1",
-    "@types/redis": "^2.8.13",
     "connect-redis": "^3.4.1",
     "express": "^4.17.1",
     "express-session": "^1.16.2",
@@ -26,13 +18,16 @@
     "mysql": "^2.17.1",
     "redis": "^2.8.0",
     "reflect-metadata": "^0.1.13",
-    "ts-node": "^8.3.0",
     "typeorm": "^0.2.18",
     "typescript": "^3.5.2"
   },
   "devDependencies": {
-    "nodemon": "^1.19.1",
-    "ts-node-dev": "^1.0.0-pre.40"
+    "@types/connect-redis": "0.0.10",
+    "@types/express": "^4.17.0",
+    "@types/express-session": "^1.15.13",
+    "@types/glob": "^7.1.1",
+    "@types/redis": "^2.8.13",
+    "tsc-watch": "^2.2.1"
   },
   "_moduleAliases": {
     "~": "dist"
