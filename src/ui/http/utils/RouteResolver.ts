@@ -1,5 +1,5 @@
-import ResponseSender from '~/ui/utils/ResponseSender'
-import ResponseTemplate, { ResponseStatus } from '~/ui/utils/ResponseTemplate'
+import ResponseSender from '~/ui/http/utils/ResponseSender'
+import ResponseTemplate, { ResponseStatus } from '~/ui/http/utils/ResponseTemplate'
 import _ from '~/lib'
 
 export default (method: any) => (req: Http.Request, res: Http.Response) => {

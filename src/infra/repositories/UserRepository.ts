@@ -1,9 +1,8 @@
-import { User } from '~/domain/User';
-import IUserRepository from './IUserRepository';
-import { UserModel } from '../database/typeorm/models/UserModel';
-import RepositoryBase from './RepositoryBase';
+import { User } from '~/domain/user/User';
+import RepositoryBase from '~/infra/repositories/RepositoryBase';
+import { UserModel } from '~/infra/database/typeorm/models/UserModel';
 
-export default class UserRepository extends RepositoryBase implements IUserRepository {
+export default class UserRepository extends RepositoryBase<User>  {
     async create(user: User): Promise<User> {
         return this.database.save(new UserModel(user))
     }

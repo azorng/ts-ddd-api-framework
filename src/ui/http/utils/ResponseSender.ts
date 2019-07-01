@@ -1,4 +1,4 @@
-import ResponseTemplate, { ResponseStatus } from '~/ui/utils/ResponseTemplate'
+import ResponseTemplate, { ResponseStatus } from '~/ui/http/utils/ResponseTemplate'
 
 export default class Sender {
     res: Http.Response;

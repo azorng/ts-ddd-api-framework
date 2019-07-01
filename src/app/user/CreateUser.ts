@@ -1,15 +1,14 @@
-import IUserRepository from "~/infra/repositories/IUserRepository";
-import { User } from "~/domain/User";
+import IRepository from '~/domain/IRepository';
+import { User } from '~/domain/user/User';
 
 export default class CreateUser {
-    userRepository: IUserRepository
+    userRepository: IRepository<User>
 
-    constructor(userRepository: IUserRepository) {
+    constructor(userRepository: IRepository<User>) {
         this.userRepository = userRepository
     }
 
     async create(user: User) {
         return this.userRepository.create(user)
     }
-    
 }

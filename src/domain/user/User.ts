@@ -1,6 +1,6 @@
 import EntityBase from '~/domain/EntityBase'
 
-export type UserProps = {
+export interface UserProps {
     username: string
     age?: number
 }
@@ -18,9 +18,5 @@ export class User extends EntityBase {
 
     get username(): string {
         return this.user.username
-    }
-    
-    get sex(): boolean {
-        return true
     }
 }

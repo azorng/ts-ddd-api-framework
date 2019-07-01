@@ -1,7 +1,7 @@
 import express from 'express';
-import Router from '~/ui/Router'
+import Router from '~/ui/http/Router'
 import bodyParser from 'body-parser'
-import session from '~/ui/middlewares/Session'
+import session from '~/ui/http/middlewares/Session'
 
 export default class Server {
   static start() {

@@ -1,6 +1,6 @@
-import routeResolver from '~/ui/utils/RouteResolver'
+import routeResolver from '~/ui/http/utils/RouteResolver'
 
-import AuthController from '~/ui/controllers/AuthController'
+import AuthController from '~/ui/http/controllers/AuthController'
 
 export default (api: Http.Router): Http.Router => {
     return api

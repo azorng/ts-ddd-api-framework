@@ -1,6 +1,6 @@
 import CreateUser from '~/app/user/CreateUser';
 import UserRepository from '~/infra/repositories/UserRepository';
-import { User } from '~/domain/User';
+import { User } from '~/domain/user/User';
 
 export default class UserController {
     static async getUser({ user }: any) {
@@ -13,7 +13,7 @@ export default class UserController {
 
     static async createUser({ username }: any) {
         const user = new User({
-            username,
+            username
         });
         return new CreateUser(new UserRepository()).create(user)
     }

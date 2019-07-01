@@ -1,6 +1,6 @@
-import routeResolver from '~/ui/utils/RouteResolver'
+import routeResolver from '~/ui/http/utils/RouteResolver'
 
-import UserController from '~/ui/controllers/UserController'
+import UserController from '~/ui/http/controllers/UserController'
 
 export default (api: Http.Router): Http.Router => {
     return api
