@@ -4,7 +4,7 @@ import bodyParser from 'body-parser'
 import { session } from '~/ui/http/middlewares/Session'
 
 export class Server {
-  static start() {
+  public static start() {
     express()
       .disable('x-powered-by')
       .use(session)

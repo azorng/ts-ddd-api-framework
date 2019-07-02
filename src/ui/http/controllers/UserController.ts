@@ -11,10 +11,11 @@ export class UserController {
         }
     }
 
-    static async createUser({ username }: any) {
+    static async createUser({ username }: any): Promise<User> {
         const user = new User({
             username
         });
-        return new EntityCrudService<User>(new UserRepository()).create(user)
+        const createdUser = await new EntityCrudService<User>(new UserRepository()).create([user])
+        return createdUser[0]
     }
 }

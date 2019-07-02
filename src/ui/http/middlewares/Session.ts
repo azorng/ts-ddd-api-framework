@@ -5,7 +5,7 @@ import redisConnect from 'connect-redis'
 const Store = redisConnect(expressSession)
 
 export const session = expressSession({
-    secret: 'shh',
+    secret: 'topsecret',
     store: new Store({ host: 'localhost', port: 6379, client: RedisClient, ttl: 260 }),
     saveUninitialized: false,
     resave: false

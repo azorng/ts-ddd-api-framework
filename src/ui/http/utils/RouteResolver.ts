@@ -10,7 +10,7 @@ export const RouteResolver = (method: any) => (req: Http.Request, res: Http.Resp
         const methodResult = _executeMethod(method, params)
         _processPromiseResponse(methodResult, sender)
     } else {
-        sender.send400()
+        sender.sendError('Bad Request')
     }
 
 }

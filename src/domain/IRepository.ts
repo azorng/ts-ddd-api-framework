@@ -1,3 +1,3 @@
 export interface IRepository<T> {
-    create(entity: T): Promise<T>
+    create(entities: T[]): Promise<T[]>
 }

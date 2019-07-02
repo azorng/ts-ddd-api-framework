@@ -7,7 +7,7 @@ export class EntityCrudService<Entity> {
         this.repository = repository
     }
 
-    async create(entity: Entity) {
-        return this.repository.create(entity)
+    async create(entities: Entity[]) {
+        return this.repository.create(entities)
     }
 }

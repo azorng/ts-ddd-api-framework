@@ -1,17 +1,11 @@
 export class ResponseTemplate {
-    response: IResponseTemplate;
+    status: ResponseStatus
+    data: any
 
     constructor(status: ResponseStatus, data: any) {
-        this.response = {
-            status,
-            data
-        }
+        this.status = status
+        this.data = data
     }
-}
-
-interface IResponseTemplate {
-    status: ResponseStatus,
-    data: any
 }
 
 export enum ResponseStatus {

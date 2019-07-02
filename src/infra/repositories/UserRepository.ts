@@ -4,7 +4,8 @@ import { UserModel } from '~/infra/database/typeorm/models/UserModel';
 import { IUserRepository } from '~/domain/user/IUserRepository';
 
 export class UserRepository extends RepositoryBase implements IUserRepository {
-    async create(user: User): Promise<User> {
-        return this.database.save(new UserModel(user))
+    async create(users: User[]): Promise<User[]> {
+        const userModels = users.map(user => new UserModel(user))
+        return this.database.save(userModels)
     }
 }

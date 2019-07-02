@@ -8,7 +8,7 @@ export interface UserProperties {
 export class User extends EntityBase {
     public static MIN_LEGAL_AGE = 21
 
-    constructor(public user: UserProperties) {
+    constructor(private user: UserProperties) {
         super()
     }
 

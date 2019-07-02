@@ -8,17 +8,18 @@ export class ResponseSender {
 
     send(response: ResponseTemplate) {
         this.res
-            .status(statusNameToCode(response.response.status))
-            .json(response.response)
+            .status(statusNameToCode(response.status))
+            .json(response)
     }
 
-    send400(body = {}) {
+    sendError(message?: any) {
+        const response: ResponseTemplate = {
+            status: ResponseStatus.error,
+            data: message
+        }
         this.res
             .status(statusNameToCode(ResponseStatus.error))
-            .json({
-                status: ResponseStatus.error,
-                body
-            })
+            .json(response)
     }
 }
 
