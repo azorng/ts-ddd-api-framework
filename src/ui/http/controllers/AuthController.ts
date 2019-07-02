@@ -1,4 +1,4 @@
-export default class AuthController {
+export class AuthController {
     static async authenticate({ username, password, $session }: any) {
         if (username == 'azorvk' && password == 123) {
             $session.userInfo = {

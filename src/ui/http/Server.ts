@@ -1,9 +1,9 @@
 import express from 'express';
-import Router from '~/ui/http/Router'
+import { Router } from '~/ui/http/Router'
 import bodyParser from 'body-parser'
-import session from '~/ui/http/middlewares/Session'
+import { session } from '~/ui/http/middlewares/Session'
 
-export default class Server {
+export class Server {
   static start() {
     express()
       .disable('x-powered-by')

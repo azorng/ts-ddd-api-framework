@@ -1,13 +1,13 @@
 import redis from 'redis'
 
-const client = redis.createClient()
+const RedisClient = redis.createClient()
 
-client.on('connect', function () {
+RedisClient.on('connect', function () {
     console.log('Redis client connected');
 });
 
-client.on('error', function (err) {
+RedisClient.on('error', function (err) {
     console.log('Redis client failed', err);
 });
 
-export default client
+export { RedisClient }

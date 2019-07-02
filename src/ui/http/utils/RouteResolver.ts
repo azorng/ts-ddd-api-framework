@@ -1,8 +1,8 @@
-import ResponseSender from '~/ui/http/utils/ResponseSender'
-import ResponseTemplate, { ResponseStatus } from '~/ui/http/utils/ResponseTemplate'
+import { ResponseSender } from '~/ui/http/utils/ResponseSender'
+import { ResponseTemplate, ResponseStatus } from '~/ui/http/utils/ResponseTemplate'
 import _ from '~/lib'
 
-export default (method: any) => (req: Http.Request, res: Http.Response) => {
+export const RouteResolver = (method: any) => (req: Http.Request, res: Http.Response) => {
     const params: object = _getParams(req)
     const sender = new ResponseSender(res)
 

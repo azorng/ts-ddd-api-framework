@@ -1,3 +1,3 @@
-export default class EntityBase {
+export class EntityBase {
     // TODO
 }

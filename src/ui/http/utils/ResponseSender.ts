@@ -1,6 +1,6 @@
-import ResponseTemplate, { ResponseStatus } from '~/ui/http/utils/ResponseTemplate'
+import { ResponseTemplate, ResponseStatus } from '~/ui/http/utils/ResponseTemplate'
 
-export default class Sender {
+export class ResponseSender {
     res: Http.Response;
     constructor(res: Http.Response) {
         this.res = res

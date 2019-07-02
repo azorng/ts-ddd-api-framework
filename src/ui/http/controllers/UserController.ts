@@ -1,8 +1,8 @@
-import EntityCRUD from '~/app/EntityCRUD';
-import UserRepository from '~/infra/repositories/UserRepository';
+import { EntityCrudService } from '~/app/EntityCrudService';
+import { UserRepository } from '~/infra/repositories/UserRepository';
 import { User } from '~/domain/user/User';
 
-export default class UserController {
+export class UserController {
     static async getUser({ user }: any) {
         if (user && user == 'good') {
             return 'this user is good'
@@ -15,6 +15,6 @@ export default class UserController {
         const user = new User({
             username
         });
-        return new EntityCRUD<User>(new UserRepository()).create(user)
+        return new EntityCrudService<User>(new UserRepository()).create(user)
     }
 }

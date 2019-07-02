@@ -1,4 +1,4 @@
-import EntityBase from '~/domain/EntityBase'
+import { EntityBase } from '~/domain/EntityBase'
 
 export interface UserProperties {
     username: string

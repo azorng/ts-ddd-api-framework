@@ -1,9 +1,9 @@
 import _ from '~/lib'
 
-import { Router } from 'express'
+import { Router as ExpressRouter } from 'express'
 
-export default () => {
-    let api = Router()
+export const Router = () => {
+    let api = ExpressRouter()
 
     _.filesInsideFolder('routes').forEach((file: string) => {
         api = require(`./routes/${file}`).default(api)

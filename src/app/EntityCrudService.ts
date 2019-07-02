@@ -1,6 +1,6 @@
-import IRepository from '~/domain/IRepository';
+import { IRepository } from '~/domain/IRepository';
 
-export default class EntityCRUD<Entity> {
+export class EntityCrudService<Entity> {
     private repository: IRepository<Entity>
 
     constructor(repository: IRepository<Entity>) {

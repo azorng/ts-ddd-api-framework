@@ -1,4 +1,4 @@
-export default class ResponseTemplate {
+export class ResponseTemplate {
     response: IResponseTemplate;
 
     constructor(status: ResponseStatus, data: any) {
