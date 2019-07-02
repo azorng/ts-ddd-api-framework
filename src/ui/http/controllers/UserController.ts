@@ -1,4 +1,4 @@
-import CreateUser from '~/app/user/CreateUser';
+import EntityCRUD from '~/app/EntityCRUD';
 import UserRepository from '~/infra/repositories/UserRepository';
 import { User } from '~/domain/user/User';
 
@@ -15,6 +15,6 @@ export default class UserController {
         const user = new User({
             username
         });
-        return new CreateUser(new UserRepository()).create(user)
+        return new EntityCRUD<User>(new UserRepository()).create(user)
     }
 }

@@ -1,14 +1,14 @@
 import EntityBase from '~/domain/EntityBase'
 
-export interface UserProps {
+export interface UserProperties {
     username: string
     age?: number
 }
 
 export class User extends EntityBase {
-    private static MIN_LEGAL_AGE = 21
+    public static MIN_LEGAL_AGE = 21
 
-    constructor(private user: UserProps) {
+    constructor(public user: UserProperties) {
         super()
     }
 
