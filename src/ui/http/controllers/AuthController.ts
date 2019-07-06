@@ -1,26 +1,29 @@
+import { AuthenticateUserService } from '~/app/AuthenticateUserService';
+import { UserRepository } from '~/infra/repositories/UserRepository';
+
 export class AuthController {
     static async authenticate({ username, password, $session }: any) {
-        if (username == 'azorvk' && password == 123) {
+        const authenticateService = new AuthenticateUserService(new UserRepository())
+        const isValid = await authenticateService.authenticate(username, password)
+
+        if (isValid) {
             $session.userInfo = {
                 loggedIn: true,
-                name: 'azor'
+                username
             }
-            return 'login successful'
-        } else {
-            throw 'login failed'
         }
     }
 
     static async amILoggedIn({ $session }: any) {
         if ($session.userInfo && $session.userInfo.loggedIn) {
-            return `you are logged in, welcome back ${$session.userInfo.name}`
+            return `You are logged in, welcome back ${$session.userInfo.username}`
         } else {
-            return 'you are not logged in'
+            return 'You are not logged in'
         }
     }
 
     static async logOut({ $session }: any) {
         $session.userInfo = {}
-        return 'logged out :('
+        return 'Logged out :('
     }
 }

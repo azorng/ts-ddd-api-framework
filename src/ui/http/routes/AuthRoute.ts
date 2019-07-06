@@ -3,7 +3,7 @@ import { AuthController } from '~/ui/http/controllers/AuthController'
 
 export default (api: Http.Router): Http.Router => {
     return api
-        .get('/auth/:username/:password', RouteResolver(AuthController.authenticate))
+        .post('/auth', RouteResolver(AuthController.authenticate))
         .get('/auth/am-i-logged-in', RouteResolver(AuthController.amILoggedIn))
-        .get('/auth/logOut', RouteResolver(AuthController.logOut))
+        .get('/auth/log-out', RouteResolver(AuthController.logOut))
 }

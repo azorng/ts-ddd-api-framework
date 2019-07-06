@@ -1,4 +1,4 @@
-import { createConnection, getConnection, getManager, ConnectionOptions } from 'typeorm';
+import { createConnection, ConnectionOptions } from 'typeorm';
 import path from 'path'
 
 const conf: ConnectionOptions = {
@@ -10,11 +10,7 @@ const conf: ConnectionOptions = {
     password: "root",
     database: "test",
     synchronize: true,
-    entities: [path.join(__dirname, '/models/*')]
+    entities: [path.join(__dirname, '/entities/*')]
 }
 
 export const CreateDatabaseConnection = async () => createConnection(conf)
-
-export const DatabaseConnection = () => getConnection()
-
-export const Database = () => getManager()

@@ -1,24 +1,20 @@
-import { EntityCrudService } from '~/app/EntityCrudService';
 import { UserRepository } from '~/infra/repositories/UserRepository';
 import { User } from '~/domain/user/User';
+import { RegisterUserService } from '~/app/RegisterUserService';
 
 export class UserController {
-    static async getUser({ user }: any) {
-        if (user && user == 'good') {
-            return 'this user is good'
-        } else {
-            throw 'this user is NOT good '
-        }
+    static async getUser({ username }: any) {
+        return new UserRepository().fetch({ username })
     }
 
-    static async createUser({ username }: any): Promise<number> {
+    static async createUser({ username, password }: any) {
         const user = new User({
-            username
-        });
+            username,
+            password
+        })
 
-        const crudService = new EntityCrudService(new UserRepository())
-        const createdUser = await crudService.save(user)
+        const registerService = new RegisterUserService(new UserRepository())
 
-        return createdUser.id
+        return registerService.register(user)
     }
 }
