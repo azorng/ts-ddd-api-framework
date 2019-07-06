@@ -1,5 +1,6 @@
 import { ResponseSender } from '~/ui/http/utils/ResponseSender'
 import { ResponseTemplate, ResponseStatus } from '~/ui/http/utils/ResponseTemplate'
+import { ReponseErrorHandler } from '~/ui/http/utils/ResponseErrorHandler';
 import _ from '~/lib'
 
 export const RouteResolver = (method: any) => (req: Http.Request, res: Http.Response) => {
@@ -21,10 +22,9 @@ const _processPromiseResponse = (promise: Promise<any>, sender: ResponseSender) 
             sender.send(new ResponseTemplate(ResponseStatus.success, res))
         })
         .catch(error => {
-            sender.send(new ResponseTemplate(ResponseStatus.fail, error))
+            sender.send(ReponseErrorHandler.generateResponse(error))
         })
 }
-
 
 const _executeMethod = (method: any, params: object) => method(params)
 
