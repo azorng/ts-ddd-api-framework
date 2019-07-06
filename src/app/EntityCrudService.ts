@@ -1,13 +1,13 @@
 import { IRepository } from '~/domain/IRepository';
 
-export class EntityCrudService<Entity> {
-    private repository: IRepository<Entity>
+export class EntityCrudService<Entity, Model> {
+    constructor(private repository: IRepository<Entity, Model>) { }
 
-    constructor(repository: IRepository<Entity>) {
-        this.repository = repository
+    async saveAll(entities: Entity[]) {
+        return this.repository.saveAll(entities)
     }
 
-    async create(entities: Entity[]) {
-        return this.repository.create(entities)
+    async save(entity: Entity) {
+        return this.repository.save(entity)
     }
 }

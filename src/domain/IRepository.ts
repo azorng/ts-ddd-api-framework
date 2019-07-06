@@ -1,3 +1,4 @@
-export interface IRepository<T> {
-    create(entities: T[]): Promise<T[]>
+export interface IRepository<Entity, Model> {
+    saveAll(entities: Entity[]): Promise<Model[]>
+    save(entity: Entity): Promise<Model>
 }

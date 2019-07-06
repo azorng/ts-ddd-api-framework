@@ -19,4 +19,5 @@ export class User extends EntityBase {
     get username(): string {
         return this.user.username
     }
+
 }

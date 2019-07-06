@@ -4,10 +4,11 @@ import { User } from '~/domain/user/User';
 @Entity('user')
 export class UserModel extends User {
     @PrimaryGeneratedColumn()
-    id: number;
+    id: number
 
     @Column({
         length: 100
     })
-    username: string;
+    username: string
+
 }
