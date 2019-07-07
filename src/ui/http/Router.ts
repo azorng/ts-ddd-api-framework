@@ -1,4 +1,4 @@
-import _ from '~/lib'
+import { _ } from '~/lib'
 import { Router as ExpressRouter } from 'express'
 
 export const Router = () => {

@@ -6,12 +6,9 @@ export class RegisterUserService {
     constructor(private userRepository: IUserRepository) { }
 
     async register(user: User) {
-        const userExists = await this.userRepository.fetch({ username: user.username })
-
-        if (userExists) throw 'This username already exists'
-
+        user.validate()
         user.password = await bcrypt.hash(user.password)
-
         return this.userRepository.save(user)
     }
+
 }

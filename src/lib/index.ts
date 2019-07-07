@@ -3,7 +3,7 @@ import path from 'path'
 
 const rootDir = path.dirname(__dirname);
 
-export default {
+export const _ = {
   filesInsideFolder: (folder: string, withExtension = false) => {
     const ignoredFiles = ['index.js', '_*']
     return glob.sync(`${rootDir}/**/${folder}/*.js`, {
@@ -17,6 +17,15 @@ export default {
 
   isEmpty: (object: object) => {
     return Object.entries(object).length === 0 && object.constructor === Object
+  },
+
+  propName: (prop: any, value: any) => {
+    for (var i in prop) {
+      if (prop[i] == value) {
+        return i;
+      }
+    }
+    return 'undefined';
   }
 
 }

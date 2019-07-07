@@ -1,7 +1,7 @@
 import { ResponseSender } from '~/ui/http/utils/ResponseSender'
 import { ResponseTemplate, ResponseStatus } from '~/ui/http/utils/ResponseTemplate'
 import { ReponseErrorHandler } from '~/ui/http/utils/ResponseErrorHandler';
-import _ from '~/lib'
+import { _ } from '~/lib'
 
 export const RouteResolver = (method: any) => (req: Http.Request, res: Http.Response) => {
     const params: object = _getParams(req)
