@@ -1,6 +1,7 @@
 import { IUserRepository } from '~/domain/user/IUserRepository';
 import { bcrypt } from '~/infra/crypto/bcrypt';
-import { BadCredentialsException } from '~/infra/exceptions/BadCredentialsException';
+import { Exception } from '~/domain/exceptions/Exception';
+import { ExceptionCode } from '~/domain/exceptions/ExceptionNames';
 
 export class AuthenticateUserService {
     constructor(private userRepository: IUserRepository) { }
@@ -8,11 +9,11 @@ export class AuthenticateUserService {
     async authenticate(username: string, password: string) {
         const user = await this.userRepository.fetch({ username })
 
-        if (!user) throw new BadCredentialsException()
+        if (!user) throw new Exception(ExceptionCode.BAD_CREDENTIALS)
 
         const areRightCredentials = await bcrypt.compare(password, user.password)
 
-        if (!areRightCredentials) throw new BadCredentialsException()
+        if (!areRightCredentials) throw new Exception(ExceptionCode.BAD_CREDENTIALS)
 
         return true
     }

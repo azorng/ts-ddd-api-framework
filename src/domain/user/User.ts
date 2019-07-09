@@ -1,11 +1,12 @@
-import { Exception } from '~/domain/Exception';
+import { Exception } from '~/domain/exceptions/Exception';
+import { ExceptionCode } from '~/domain/exceptions/ExceptionNames';
 
 interface UserProps {
     username: string
     password: string
 }
 
-export class User implements UserProps {
+export class User {
     username: string
     password: string
 
@@ -15,15 +16,7 @@ export class User implements UserProps {
     }
 
     validate() {
-        if (this.password.length < 5) throw new UserValidationException('Password is not secure!')
+        if (this.password.length < 5) throw new Exception(ExceptionCode.PW_NOT_SECURE)
     }
 }
 
-class UserValidationException extends Exception {
-    constructor(message: string) {
-        super({
-            name: 'USER_VALIDATION_ERROR',
-            message
-        })
-    }
-}
