@@ -16,11 +16,15 @@ export class RepositoryBase<Model, Entity> implements IRepository<Model, Entity>
         return this.database.save(new this.entity(user))
     }
 
-    async fetch(conditions: object): Promise<any> {
+    async fetch(conditions: object): Promise<Entity | undefined> {
         return this.database.findOne(conditions)
     }
 
-    async fetchAll(): Promise<Entity[]> {
-        return this.database.find()
+    async fetchAll(conditions?: object): Promise<Entity[]> {
+        if (conditions) {
+            return this.database.find(conditions)
+        } else {
+            return this.database.find()
+        }
     }
 }

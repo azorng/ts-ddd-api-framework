@@ -15,7 +15,7 @@ export const _ = {
     })
   },
 
-  isEmpty: (object: object) => {
+  isEmptyObject: (object: object) => {
     return Object.entries(object).length === 0 && object.constructor === Object
   },
 
@@ -26,6 +26,13 @@ export const _ = {
       }
     }
     return 'undefined';
-  }
+  },
+
+  clone: (obj: any) => {
+    return Object.assign(Object.create(Object.getPrototypeOf(obj)), obj)
+  },
+
+  isEmpty: (obj: any) => !(obj.length && obj.length > 0),
+
 
 }

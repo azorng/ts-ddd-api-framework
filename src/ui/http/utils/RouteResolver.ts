@@ -30,8 +30,8 @@ const _executeMethod = (method: any, params: object) => method(params)
 
 const _getParams = (req: Http.Request) => {
     // Set params from route variables
-    let params = !_.isEmpty(req.params) ? req.params
-        : !_.isEmpty(req.body) ? req.body
+    let params = !_.isEmptyObject(req.params) ? req.params
+        : !_.isEmptyObject(req.body) ? req.body
             : {}
 
     // Inject additional params         

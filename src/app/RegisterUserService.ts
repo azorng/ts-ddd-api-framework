@@ -10,5 +10,4 @@ export class RegisterUserService {
         user.password = await bcrypt.hash(user.password)
         return this.userRepository.save(user)
     }
-
 }

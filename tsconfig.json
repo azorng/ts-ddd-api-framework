@@ -6,7 +6,7 @@
       "es2017",
       "dom"
     ], /* Specify library files to be included in the compilation. */
-    "outDir": "./dist", /* Redirect output structure to the directory. */
+    "outDir": "dist", /* Redirect output structure to the directory. */
     "strict": true, /* Enable all strict type-checking options. */
     "baseUrl": ".", /* Base directory to resolve non-absolute module names. */
     "paths": {
@@ -17,6 +17,6 @@
     "esModuleInterop": true, /* Enables emit interoperability between CommonJS and ES Modules via creation of namespace objects for all imports. Implies 'allowSyntheticDefaultImports'. */
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "strictPropertyInitialization": false
+    "strictPropertyInitialization": false,
   }
 }
