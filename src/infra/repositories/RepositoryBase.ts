@@ -1,30 +1,29 @@
 import { getRepository, Repository } from 'typeorm';
-import { IRepository } from '~/domain/IRepository';
+import { IRepository } from '~/infra/repositories/IRepository';
 
-export class RepositoryBase<Model, Entity> implements IRepository<Model, Entity> {
-    database: Repository<Entity>
-    constructor(private entity: any) {
-        this.database = getRepository(entity)
+export class RepositoryBase<Entity> implements IRepository<Entity> {
+    repository: Repository<Entity>
+    constructor(entity: any) {
+        this.repository = getRepository(entity)
     }
 
-    async saveAll(models: Model[]): Promise<Entity[]> {
-        const entities = models.map(model => new this.entity(model))
-        return this.database.save(entities)
+    async saveAll(entities: Entity[]): Promise<Entity[]> {
+        return this.repository.save(entities)
     }
 
-    async save(user: Model): Promise<Entity> {
-        return this.database.save(new this.entity(user))
+    async save(entity: Entity): Promise<Entity> {
+        return this.repository.save(entity)
     }
 
     async fetch(conditions: object): Promise<Entity | undefined> {
-        return this.database.findOne(conditions)
+        return this.repository.findOne(conditions)
     }
 
     async fetchAll(conditions?: object): Promise<Entity[]> {
         if (conditions) {
-            return this.database.find(conditions)
+            return this.repository.find(conditions)
         } else {
-            return this.database.find()
+            return this.repository.find()
         }
     }
 }

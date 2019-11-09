@@ -1,11 +1,10 @@
-import { User } from '~/domain/user/User';
+import { User } from '~/domain/entities/User';
 import { RepositoryBase } from '~/infra/repositories/RepositoryBase';
-import { UserEntity } from '~/infra/database/typeorm/entities/UserEntity';
-import { IUserRepository } from '~/domain/user/IUserRepository';
+import { IUserRepository } from '~/infra/repositories/IUserRepository';
 
-export class UserRepository extends RepositoryBase<User, UserEntity> implements IUserRepository {
+export class UserRepository extends RepositoryBase<User> implements IUserRepository {
     constructor() {
-        super(UserEntity)
+        super(User)
     }
 }
 

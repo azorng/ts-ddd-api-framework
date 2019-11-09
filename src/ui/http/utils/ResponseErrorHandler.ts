@@ -1,7 +1,7 @@
 import { ResponseTemplate, ResponseStatus } from '~/ui/http/utils/ResponseTemplate';
 import { Exception } from '~/domain/exceptions/Exception';
-import { ExceptionMessagesTranslations, ExceptionCode } from '~/domain/exceptions/ExceptionNames';
-import { Language } from '~/domain/Languages';
+import { ExceptionMessagesTranslations, ExceptionCodes } from '~/domain/exceptions/ExceptionMessages';
+import { Language } from '~/domain/Language';
 
 export class ReponseErrorHandler {
     static generateResponse(error: any) {
@@ -10,7 +10,7 @@ export class ReponseErrorHandler {
             const language = Language['EN']
             const exceptionCode: any = error.name
 
-            error.message = ExceptionMessagesTranslations[language][ExceptionCode[exceptionCode]]
+            error.message = ExceptionMessagesTranslations[language][ExceptionCodes[exceptionCode]]
 
             response = new ResponseTemplate(ResponseStatus.fail, error)
         } else {

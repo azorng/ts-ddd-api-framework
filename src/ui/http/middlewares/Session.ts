@@ -1,12 +1,12 @@
 import expressSession from 'express-session'
-import { RedisClient } from '~/infra/database/redis/Client'
 import redisConnect from 'connect-redis'
+import { redisConnectOptions } from '~/infra/database/redis/RedisConnectOptions';
 
 const Store = redisConnect(expressSession)
 
 export const session = expressSession({
     secret: 'topsecret',
-    store: new Store({ host: 'localhost', port: 6379, client: RedisClient, ttl: 260 }),
+    store: new Store(redisConnectOptions),
     saveUninitialized: false,
     resave: false
 })

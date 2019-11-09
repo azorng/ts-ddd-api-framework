@@ -1,6 +1,6 @@
-import { IRepository } from '~/domain/IRepository';
+import { IRepository } from '~/infra/repositories/IRepository';
 
-export class FakeRepositoryBase<Model, Entity> implements IRepository<Model, Entity> {
+export class FakeRepositoryBase<Entity> implements IRepository<Entity> {
 
     entities: Entity[]
 
@@ -8,13 +8,13 @@ export class FakeRepositoryBase<Model, Entity> implements IRepository<Model, Ent
         this.entities = entities || []
     }
 
-    async saveAll(models: Model[]): Promise<Entity[]> {
-        const entities = models.map(model => new this.entity(model))
+    async saveAll(entitiess: Entity[]): Promise<Entity[]> {
+        const entities = entitiess.map(entity => new this.entity(entity))
         this.entities.concat(entities)
         return this.entities
     }
 
-    async save(user: Model): Promise<Entity> {
+    async save(user: Entity): Promise<Entity> {
         const entity = new this.entity(user)
         this.entities.push(entity)
         return entity

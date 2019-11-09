@@ -1,13 +1,13 @@
 import { UserRepository } from '~/infra/repositories/UserRepository';
-import { User } from '~/domain/user/User';
+import { User } from '~/domain/entities/User';
 import { RegisterUserService } from '~/app/RegisterUserService';
 import { Exception } from '~/domain/exceptions/Exception';
-import { ExceptionCode } from '~/domain/exceptions/ExceptionNames';
+import { ExceptionCodes } from '~/domain/exceptions/ExceptionMessages';
 
 export class UserController {
     static async getUser({ username }: any) {
         const user = await new UserRepository().fetch({ username })
-        if (!user) throw new Exception(ExceptionCode.ENTITY_NOT_FOUND)
+        if (!user) throw new Exception(ExceptionCodes.ENTITY_NOT_FOUND)
         return user
     }
 

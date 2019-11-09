@@ -4,7 +4,7 @@ import { _ } from '~/lib';
 import { AuthenticateUserService } from '~/app/AuthenticateUserService';
 import { RegisterUserService } from '~/app/RegisterUserService';
 import { Exception } from '~/domain/exceptions/Exception';
-import { ExceptionCode } from '~/domain/exceptions/ExceptionNames';
+import { ExceptionCodes } from '~/domain/exceptions/ExceptionMessages';
 
 
 describe('authenticate()', () => {
@@ -42,7 +42,7 @@ describe('authenticate()', () => {
 
         // Assert
         expect(exception).toBeInstanceOf(Exception)
-        expect(ExceptionCode[exception.name]).toBe(ExceptionCode.BAD_CREDENTIALS)
+        expect(ExceptionCodes[exception.name]).toBe(ExceptionCodes.BAD_CREDENTIALS)
     })
 
     it('throws bad credentials error when user not found', async () => {
@@ -64,6 +64,6 @@ describe('authenticate()', () => {
 
         // Assert
         expect(exception).toBeInstanceOf(Exception)
-        expect(ExceptionCode[exception.name]).toBe(ExceptionCode.BAD_CREDENTIALS)
+        expect(ExceptionCodes[exception.name]).toBe(ExceptionCodes.BAD_CREDENTIALS)
     })
 })

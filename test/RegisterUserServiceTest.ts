@@ -2,7 +2,7 @@ import { RegisterUserService } from '~/app/RegisterUserService';
 import { FakeUserRepository } from 'test/repositories/FakeUserRepository';
 import { UserBuilder } from 'test/builders/UserBuilder';
 import { _ } from '~/lib';
-import { ExceptionCode } from '~/domain/exceptions/ExceptionNames';
+import { ExceptionCodes } from '~/domain/exceptions/ExceptionMessages';
 import { Exception } from '~/domain/exceptions/Exception';
 
 
@@ -44,7 +44,7 @@ describe('register()', () => {
     // Assert
     expect(exception).not.toBeUndefined()
     expect(exception).toBeInstanceOf(Exception)
-    expect(ExceptionCode[exception.name]).toBe(ExceptionCode.DUP_ENTRY)
+    expect(ExceptionCodes[exception.name]).toBe(ExceptionCodes.DUPLICATE_ENTRY)
   })
 })
 
