@@ -1,6 +1,6 @@
-import { createConnection, ConnectionOptions } from 'typeorm';
+import { createConnection, ConnectionOptions } from 'typeorm'
 import path from 'path'
-import { config } from '~/config';
+import { config } from '~/config'
 
 const conf: ConnectionOptions = {
     name: 'default',
