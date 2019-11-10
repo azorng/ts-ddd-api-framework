@@ -1,11 +1,11 @@
-import { User } from '~/domain/entities/User';
+import { User } from '~/domain/entities/User'
 
 export class UserBuilder {
     user: User
 
     constructor() {
         this.user = new User({
-            username: 'userOne',
+            email: 'userOne',
             password: 'secure123'
         })
     }

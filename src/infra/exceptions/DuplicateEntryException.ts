@@ -1,13 +1,13 @@
-import { Exception } from '~/domain/exceptions/Exception';
-import { _ } from '~/lib';
-import { ExceptionCodes } from '~/domain/exceptions/ExceptionMessages';
+import { Exception } from '~/domain/exceptions/Exception'
+import { _ } from '~/lib'
+import { ExceptionCode } from '~/domain/exceptions/ExceptionMessages'
 
 export class DuplicateEntryException<Entity> extends Exception {
-    duplicate: string[]
+    property: string
 
     constructor(entity: Entity, duplicatedValue: string) {
-        super(ExceptionCodes.DUPLICATE_ENTRY)
-        const field = _.propName(entity, duplicatedValue)
-        this.duplicate = [field]
+        super(ExceptionCode.DUPLICATE_ENTRY)
+        const property = _.propName(entity, duplicatedValue)
+        this.property = property
     }
 }

@@ -1,10 +1,10 @@
-import { ExceptionCodes } from '~/domain/exceptions/ExceptionMessages';
+import { ExceptionCode } from '~/domain/exceptions/ExceptionMessages'
 
 export class Exception {
     name: string
     message: string
 
-    constructor(exception: ExceptionCodes) {
-        this.name = ExceptionCodes[exception]
+    constructor(exception: ExceptionCode) {
+        this.name = ExceptionCode[exception]
     }
 }

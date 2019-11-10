@@ -12,4 +12,4 @@ export enum ResponseStatus {
     success = 'success',
     fail = 'fail',
     error = 'error'
-};
+}

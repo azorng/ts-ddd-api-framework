@@ -1,11 +1,10 @@
-import { FakeUserRepository } from 'test/repositories/FakeUserRepository';
-import { UserBuilder } from 'test/builders/UserBuilder';
-import { _ } from '~/lib';
-import { AuthenticateUserService } from '~/app/AuthenticateUserService';
-import { RegisterUserService } from '~/app/RegisterUserService';
-import { Exception } from '~/domain/exceptions/Exception';
-import { ExceptionCodes } from '~/domain/exceptions/ExceptionMessages';
-
+import { FakeUserRepository } from 'test/repositories/FakeUserRepository'
+import { UserBuilder } from 'test/builders/UserBuilder'
+import { _ } from '~/lib'
+import { AuthenticateUserService } from '~/app/AuthenticateUserService'
+import { RegisterUserService } from '~/app/RegisterUserService'
+import { Exception } from '~/domain/exceptions/Exception'
+import { ExceptionCode } from '~/domain/exceptions/ExceptionMessages'
 
 describe('authenticate()', () => {
     it('returns true when credentials are right', async () => {
@@ -17,7 +16,9 @@ describe('authenticate()', () => {
         await registerUser.register(_.clone(user))
 
         // Act
-        const authSuccess = await sut.authenticate(user.username, user.password).catch(e => console.log(e))
+        const authSuccess = await sut
+            .authenticate(user.email, user.password)
+            .catch(e => console.log(e))
 
         // Assert
         expect(authSuccess).toBe(true)
@@ -35,14 +36,14 @@ describe('authenticate()', () => {
         // Act
         let exception
         try {
-            await sut.authenticate(user.username, 'wrongPass')
+            await sut.authenticate(user.email, 'wrongPass')
         } catch (e) {
             exception = e
         }
 
         // Assert
         expect(exception).toBeInstanceOf(Exception)
-        expect(ExceptionCodes[exception.name]).toBe(ExceptionCodes.BAD_CREDENTIALS)
+        expect(ExceptionCode[exception.name]).toBe(ExceptionCode.BAD_CREDENTIALS)
     })
 
     it('throws bad credentials error when user not found', async () => {
@@ -64,6 +65,6 @@ describe('authenticate()', () => {
 
         // Assert
         expect(exception).toBeInstanceOf(Exception)
-        expect(ExceptionCodes[exception.name]).toBe(ExceptionCodes.BAD_CREDENTIALS)
+        expect(ExceptionCode[exception.name]).toBe(ExceptionCode.BAD_CREDENTIALS)
     })
 })

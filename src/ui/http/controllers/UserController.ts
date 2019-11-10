@@ -1,24 +1,24 @@
-import { UserRepository } from '~/infra/repositories/UserRepository';
-import { User } from '~/domain/entities/User';
-import { RegisterUserService } from '~/app/RegisterUserService';
-import { Exception } from '~/domain/exceptions/Exception';
-import { ExceptionCodes } from '~/domain/exceptions/ExceptionMessages';
+import { UserRepository } from '~/infra/repositories/UserRepository'
+import { User, UserProps } from '~/domain/entities/User'
+import { RegisterUserService } from '~/app/RegisterUserService'
+import { Exception } from '~/domain/exceptions/Exception'
+import { ExceptionCode } from '~/domain/exceptions/ExceptionMessages'
 
 export class UserController {
-    static async getUser({ username }: any) {
-        const user = await new UserRepository().fetch({ username })
-        if (!user) throw new Exception(ExceptionCodes.ENTITY_NOT_FOUND)
+    static async getUser({ email }: any) {
+        const user = await new UserRepository().fetch({ email })
+        if (!user) throw new Exception(ExceptionCode.ENTITY_NOT_FOUND)
         return user
     }
 
-    static async createUser({ username, password }: any) {
-        const user = new User({
-            username,
+    static async createUser({ email, password }: any) {
+        const userProps: UserProps = {
+            email,
             password
-        })
+        }
 
         const registerService = new RegisterUserService(new UserRepository())
 
-        return registerService.register(user)
+        return registerService.register(userProps)
     }
 }

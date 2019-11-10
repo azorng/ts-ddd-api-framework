@@ -1,7 +1,7 @@
 import { ResponseTemplate, ResponseStatus } from '~/ui/http/utils/ResponseTemplate'
 
 export class ResponseSender {
-    res: Http.Response;
+    res: Http.Response
     constructor(res: Http.Response) {
         this.res = res
     }

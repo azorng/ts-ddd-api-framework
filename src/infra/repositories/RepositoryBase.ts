@@ -1,5 +1,5 @@
-import { getRepository, Repository } from 'typeorm';
-import { IRepository } from '~/infra/repositories/IRepository';
+import { getRepository, Repository } from 'typeorm'
+import { IRepository } from '~/infra/repositories/IRepository'
 
 export class RepositoryBase<Entity> implements IRepository<Entity> {
     repository: Repository<Entity>

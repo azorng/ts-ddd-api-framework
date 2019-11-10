@@ -1,7 +1,6 @@
-import { IRepository } from '~/infra/repositories/IRepository';
+import { IRepository } from '~/infra/repositories/IRepository'
 
 export class FakeRepositoryBase<Entity> implements IRepository<Entity> {
-
     entities: Entity[]
 
     constructor(private entity: any, entities?: Entity[]) {
@@ -55,6 +54,5 @@ export class FakeRepositoryBase<Entity> implements IRepository<Entity> {
         } else {
             return this.entities
         }
-
     }
 }

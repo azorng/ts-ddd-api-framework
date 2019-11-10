@@ -5,4 +5,4 @@ export const redisConnectOptions = {
     port: 6379,
     client: RedisClient,
     ttl: 260
-} 
+}
