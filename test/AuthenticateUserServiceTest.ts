@@ -1,24 +1,20 @@
-import { FakeUserRepository } from 'test/repositories/FakeUserRepository'
+import { FakeUserRepository } from 'test/fakes/repositories/FakeUserRepository'
 import { UserBuilder } from 'test/builders/UserBuilder'
 import { _ } from '~/lib'
 import { AuthenticateUserService } from '~/app/AuthenticateUserService'
-import { RegisterUserService } from '~/app/RegisterUserService'
 import { Exception } from '~/domain/exceptions/Exception'
 import { ExceptionCode } from '~/domain/exceptions/ExceptionMessages'
 
 describe('authenticate()', () => {
     it('returns true when credentials are right', async () => {
         // Arrange
-        const userRepository = new FakeUserRepository()
-        const registerUser = new RegisterUserService(userRepository)
+        const password = 'secure123'
+        const user = (await new UserBuilder().withPassword(password)).build()
+        const userRepository = new FakeUserRepository([user])
         const sut = new AuthenticateUserService(userRepository)
-        const user = new UserBuilder().build()
-        await registerUser.register(_.clone(user))
 
         // Act
-        const authSuccess = await sut
-            .authenticate(user.email, user.password)
-            .catch(e => console.log(e))
+        const authSuccess = await sut.authenticate(user.email, password)
 
         // Assert
         expect(authSuccess).toBe(true)
@@ -26,12 +22,9 @@ describe('authenticate()', () => {
 
     it('throws bad credentials error when credentials are wrong', async () => {
         // Arrange
-        const userRepository = new FakeUserRepository()
-        const registerUser = new RegisterUserService(userRepository)
+        const user = (await new UserBuilder().withPassword('secure123')).build()
+        const userRepository = new FakeUserRepository([user])
         const sut = new AuthenticateUserService(userRepository)
-
-        const user = new UserBuilder().build()
-        await registerUser.register(_.clone(user))
 
         // Act
         let exception
@@ -48,17 +41,15 @@ describe('authenticate()', () => {
 
     it('throws bad credentials error when user not found', async () => {
         // Arrange
-        const userRepository = new FakeUserRepository()
-        const registerUser = new RegisterUserService(userRepository)
+        const password = 'secure123'
+        const user = (await new UserBuilder().withPassword(password)).build()
+        const userRepository = new FakeUserRepository([user])
         const sut = new AuthenticateUserService(userRepository)
-
-        const user = new UserBuilder().build()
-        await registerUser.register(_.clone(user))
 
         // Act
         let exception
         try {
-            await sut.authenticate('nonExistingUser', user.password)
+            await sut.authenticate('nonExistingUser', password)
         } catch (e) {
             exception = e
         }

@@ -1,5 +1,5 @@
 import { RegisterUserService } from '~/app/RegisterUserService'
-import { FakeUserRepository } from 'test/repositories/FakeUserRepository'
+import { FakeUserRepository } from 'test/fakes/repositories/FakeUserRepository'
 import { UserBuilder } from 'test/builders/UserBuilder'
 import { _ } from '~/lib'
 import { ExceptionCode } from '~/domain/exceptions/ExceptionMessages'
@@ -25,17 +25,14 @@ describe('register()', () => {
 
     it('throws duplicate entity error when email already exists', async () => {
         // Arrangex
-        const userRepository = new FakeUserRepository()
-        const sut = new RegisterUserService(userRepository)
         const existingUser = new UserBuilder().build()
-        await sut.register(existingUser)
-
-        const user = _.clone(existingUser)
+        const userRepository = new FakeUserRepository([existingUser])
+        const sut = new RegisterUserService(userRepository)
 
         // Act
         let exception
         try {
-            await sut.register(user)
+            await sut.register(existingUser)
         } catch (e) {
             exception = e
         }
