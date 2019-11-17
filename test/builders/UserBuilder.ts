@@ -3,11 +3,14 @@ import { bcrypt } from '~/infra/crypto/bcrypt'
 
 export class UserBuilder {
     user: User
+    password: string
 
     constructor() {
+        this.password = 'secure123'
+
         this.user = new User({
             email: 'johnny@umbrella.co',
-            password: 'secure123',
+            password: this.password,
             firstName: 'Johnny',
             lastName: 'Cash',
             company: 'Umbrella',
@@ -15,8 +18,8 @@ export class UserBuilder {
         })
     }
 
-    async withPassword(password: string) {
-        this.user.password = await bcrypt.hash('secure123')
+    withHashedPassword() {
+        this.user.password = bcrypt.hash(this.password)
         return this
     }
 

@@ -4,23 +4,27 @@ import { UserBuilder } from 'test/builders/UserBuilder'
 import { _ } from '~/lib'
 import { ExceptionCode } from '~/domain/exceptions/ExceptionMessages'
 import { Exception } from '~/domain/exceptions/Exception'
+import { initTestSetup } from 'test/setup/InitTestSetup'
+
+beforeAll(() => {
+    initTestSetup()
+})
 
 describe('register()', () => {
     it('registers a user and saves to db', async () => {
         // Arrange
+        const userBuilder = new UserBuilder()
         const userRepository = new FakeUserRepository()
         const sut = new RegisterUserService(userRepository)
-        const user = new UserBuilder().build()
+        const user = userBuilder.build()
 
         // Act
-        await sut.register(_.clone(user))
+        await sut.register(user)
 
         // Assert
         const savedUser = userRepository.entities[0]
         expect(savedUser.email).toBe(user.email)
-
-        // Encrypts password
-        expect(savedUser.password).not.toBe(user.password)
+        expect(savedUser.password).not.toBe(userBuilder.password) // Encrypts password
     })
 
     it('throws duplicate entity error when email already exists', async () => {

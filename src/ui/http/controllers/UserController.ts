@@ -23,6 +23,6 @@ export class UserController {
 
         const registerService = new RegisterUserService(new UserRepository())
 
-        return registerService.register(userProps)
+        return registerService.register(new User(userProps))
     }
 }

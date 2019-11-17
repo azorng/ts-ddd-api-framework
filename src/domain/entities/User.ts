@@ -25,7 +25,7 @@ export class User extends EntityBase {
     @IsAlpha()
     lastName: string
 
-    @Column({ length: 50,  })
+    @Column({ length: 50, default: null })
     company?: string
 
     @Column({ unique: true })

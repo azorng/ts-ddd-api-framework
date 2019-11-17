@@ -1,9 +1,8 @@
 import { AuthenticateUserService } from '~/app/AuthenticateUserService'
-import { UserRepository } from '~/infra/repositories/UserRepository'
 
 export class AuthController {
     static async authenticate({ email, password, $session }: any) {
-        const authenticateService = new AuthenticateUserService(new UserRepository())
+        const authenticateService = new AuthenticateUserService()
         const isValid = await authenticateService.authenticate(email, password)
 
         if (isValid) {
