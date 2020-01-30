@@ -3,6 +3,7 @@ import { Router } from '~/ui/http/Router'
 import bodyParser from 'body-parser'
 import { session } from '~/ui/http/middlewares/Session'
 import helmet from 'helmet'
+import { env } from '~/config';
 
 export class Server {
     public static start() {
@@ -11,6 +12,6 @@ export class Server {
             .use(session)
             .use(bodyParser.urlencoded({ extended: true }))
             .use('/', Router())
-            .listen(80)
+            .listen(env.PORT, () => console.log(`Server listening on port ${env.PORT}`))
     }
 }

@@ -1,4 +1,4 @@
-import bcryptNode from 'bcrypt'
+import bcryptNode from 'bcryptjs'
 
 export class bcrypt {
     static hash(data: string) {
