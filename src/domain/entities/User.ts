@@ -1,15 +1,14 @@
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm'
-import { Length, IsEmail, IsAlpha, IsUrl } from 'class-validator'
+import { Length, IsEmail, IsAlpha, IsDate } from 'class-validator'
 import { EntityBase } from '~/domain/EntityBase'
 import { ExceptionCode } from '~/domain/exceptions/ExceptionMessages'
 
 export interface UserProps {
     email: string
     password: string
-    firstName: string
-    lastName: string
-    company?: string
-    website: string
+    name: string
+    gender: string
+    birthdate: Date
 }
 
 @Entity('user')
@@ -19,18 +18,7 @@ export class User extends EntityBase {
 
     @Column()
     @IsAlpha()
-    firstName: string
-
-    @Column()
-    @IsAlpha()
-    lastName: string
-
-    @Column({ length: 50, default: null })
-    company?: string
-
-    @Column({ unique: true })
-    @IsUrl()
-    website: string
+    name: string
 
     @Column({ unique: true })
     @IsEmail(undefined, {
@@ -38,7 +26,15 @@ export class User extends EntityBase {
     })
     email: string
 
-    @Column({ length: 64 })
+    @Column()
+    @IsDate()
+    birthdate: Date
+
+    @Column()
+    @IsAlpha()
+    gender: string
+
+    @Column({ select: false, length: 64 })
     @Length(6, 64, {
         message: ExceptionCode[ExceptionCode.PW_NOT_SECURE]
     })
@@ -48,9 +44,8 @@ export class User extends EntityBase {
         super()
         this.email = user.email
         this.password = user.password
-        this.firstName = user.firstName
-        this.lastName = user.lastName
-        this.company = user.company
-        this.website = user.website
+        this.name = user.name
+        this.birthdate = user.birthdate
+        this.gender = user.gender
     }
 }

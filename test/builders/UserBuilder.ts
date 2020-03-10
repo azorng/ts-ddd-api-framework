@@ -11,10 +11,9 @@ export class UserBuilder {
         this.user = new User({
             email: 'johnny@umbrella.co',
             password: this.password,
-            firstName: 'Johnny',
-            lastName: 'Cash',
-            company: 'Umbrella',
-            website: 'umbrella.co'
+            name: 'Johnny',
+            gender: 'male',
+            birthdate: new Date(),
         })
     }
 

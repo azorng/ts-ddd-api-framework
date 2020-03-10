@@ -4,6 +4,7 @@ type ExceptionMessagesTranslation = { [key in Language]: { [key in ExceptionCode
 
 export enum ExceptionCode {
     BAD_CREDENTIALS,
+    BAD_REQUEST,
     DUPLICATE_ENTRY,
     ENTITY_NOT_FOUND,
     PW_NOT_SECURE,
@@ -19,5 +20,6 @@ export const ExceptionMessagesTranslations: ExceptionMessagesTranslation = {
         [ExceptionCode.PW_NOT_SECURE]: 'Password is not secure.',
         [ExceptionCode.NOT_VALID_EMAIL]: 'Email is not valid.',
         [ExceptionCode.VALIDATION_FAILED]: 'Validation failed.',
+        [ExceptionCode.BAD_REQUEST]: 'Bad request.',
     }
 }

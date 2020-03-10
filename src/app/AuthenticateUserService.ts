@@ -6,18 +6,18 @@ import { _ } from '~/lib'
 import { UserRepository } from '~/infra/repositories/UserRepository'
 
 export class AuthenticateUserService {
-    userRepository: IUserRepository
-
-    constructor(userRepository?: IUserRepository) {
-        this.userRepository = userRepository || new UserRepository()
-    }
+    constructor(private userRepository: IUserRepository = new UserRepository()) {}
 
     async authenticate(email: string, password: string) {
-        const user = await this.userRepository.fetch({ email })
-        if (!user) throw new Exception(ExceptionCode.BAD_CREDENTIALS)
+        if (!email || !password) {
+            throw new Exception(ExceptionCode.BAD_REQUEST)
+        }
 
-        const areRightCredentials = bcrypt.compare(password, user.password)
-        if (!areRightCredentials) throw new Exception(ExceptionCode.BAD_CREDENTIALS)
+        const user = await this.userRepository.fetch({ select: ['password'], where: { email } })
+
+        if (!user || !bcrypt.compare(password, user.password)) {
+            throw new Exception(ExceptionCode.BAD_CREDENTIALS)
+        }
 
         return true
     }

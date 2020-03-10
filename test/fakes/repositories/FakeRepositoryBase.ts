@@ -19,6 +19,9 @@ export class FakeRepositoryBase<Entity> implements IRepository<Entity> {
 
     async fetch(conditions: any): Promise<Entity | undefined> {
         let matchedEntity = undefined
+
+        if (conditions.hasOwnProperty('where')) conditions = conditions.where
+
         this.entities.forEach((entity: any) => {
             for (const conditionName in conditions) {
                 if (entity.hasOwnProperty(conditionName)) {

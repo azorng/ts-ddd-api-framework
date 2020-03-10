@@ -3,6 +3,7 @@ import { UserController } from '~/ui/http/controllers/UserController'
 
 export default (api: Http.Router): Http.Router => {
     return api
-        .post('/user', RouteResolver(UserController.createUser))
-        .get('/user/:email', RouteResolver(UserController.getUser))
+        .post('/users', RouteResolver(UserController.createUser))
+        .get('/users/', RouteResolver(UserController.getAllUsers))
+        .get('/users/:email', RouteResolver(UserController.getUser))
 }

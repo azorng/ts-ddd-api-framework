@@ -7,9 +7,7 @@ export class ResponseSender {
     }
 
     send(response: ResponseTemplate) {
-        this.res
-            .status(statusNameToCode(response.status))
-            .json(response)
+        this.res.status(statusNameToCode(response.status)).json(response)
     }
 
     sendError(message?: any) {
@@ -17,9 +15,7 @@ export class ResponseSender {
             status: ResponseStatus.error,
             data: message
         }
-        this.res
-            .status(statusNameToCode(ResponseStatus.error))
-            .json(response)
+        this.res.status(statusNameToCode(ResponseStatus.error)).json(response)
     }
 }
 

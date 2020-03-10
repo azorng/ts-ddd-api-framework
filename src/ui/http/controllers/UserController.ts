@@ -11,18 +11,20 @@ export class UserController {
         return user
     }
 
-    static async createUser({ email, password, firstName, lastName, company, website }: any) {
+    static async getAllUsers() {
+        return new UserRepository().fetchAll()
+    }
+
+    static async createUser({ email, password, name, gender, birthdate }: any) {
         const userProps: UserProps = {
             email,
             password,
-            firstName,
-            lastName,
-            company,
-            website
+            name,
+            gender,
+            birthdate: new Date(birthdate)
         }
 
-        const registerService = new RegisterUserService(new UserRepository())
-
-        return registerService.register(new User(userProps))
+        const user = new User(userProps)
+        return new RegisterUserService().register(user)
     }
 }

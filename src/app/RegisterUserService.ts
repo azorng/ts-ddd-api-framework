@@ -4,9 +4,10 @@ import { bcrypt } from '~/infra/crypto/bcrypt'
 import { DuplicateEntryException } from '~/infra/exceptions/DuplicateEntryException'
 import { EventBus } from '~/infra/event/EventBus'
 import { Event } from '~/app/Events'
+import { UserRepository } from '~/infra/repositories/UserRepository'
 
 export class RegisterUserService {
-    constructor(private userRepository: IUserRepository) {}
+    constructor(private userRepository: IUserRepository = new UserRepository()) {}
 
     async register(user: User) {
         await user.validate()
@@ -14,8 +15,7 @@ export class RegisterUserService {
         await this._checkForDuplicates(user)
 
         user.password = bcrypt.hash(user.password)
-
-        user = await this.userRepository.save(user)
+        await this.userRepository.save(user)
 
         EventBus.publish(Event.user_registered, user)
         return user
@@ -24,8 +24,5 @@ export class RegisterUserService {
     async _checkForDuplicates(user: User) {
         const existingEmail = await this.userRepository.fetch({ email: user.email })
         if (existingEmail) throw new DuplicateEntryException<User>(user, user.email)
-
-        const existingWebsite = await this.userRepository.fetch({ website: user.website })
-        if (existingWebsite) throw new DuplicateEntryException<User>(user, user.website)
     }
 }
