@@ -1,25 +1,14 @@
 import { AuthenticateUserService } from '~/app/AuthenticateUserService'
+import { UserRepository } from '~/infra/repositories/UserRepository'
 
 export class AuthController {
     static async authenticate({ email, password, $session }: any) {
         const authenticateService = new AuthenticateUserService()
-        const isValid = await authenticateService.authenticate(email, password)
-
-        if (isValid) {
-            $session.userInfo = {
-                loggedIn: true,
-                email
-            }
-        }
-    }
-
-    static async amILoggedIn({ $session }: any) {
-        return $session.userInfo?.loggedIn
-            ? `You are logged in, welcome back ${$session.userInfo.email}.`
-            : 'You are not logged in.'
+        const userId = await authenticateService.authenticate(email, password)
+        $session.auth = userId
     }
 
     static async logOut({ $session }: any) {
-        $session.userInfo = {}
+        $session.destroy()
     }
 }

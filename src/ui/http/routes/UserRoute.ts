@@ -5,5 +5,6 @@ export default (api: Http.Router): Http.Router => {
     return api
         .post('/users', RouteResolver(UserController.createUser))
         .get('/users/', RouteResolver(UserController.getAllUsers))
-        .get('/users/:email', RouteResolver(UserController.getUser))
+        .get('/users/me', RouteResolver(UserController.getCurrentUser))
+        .get('/users/:id', RouteResolver(UserController.getUser))
 }

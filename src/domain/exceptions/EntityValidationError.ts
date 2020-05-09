@@ -1,6 +1,5 @@
 import { ValidationError as ClassValidationError } from 'class-validator'
 import { ExceptionMessagesTranslations, ExceptionCode } from '~/domain/exceptions/ExceptionMessages'
-import { Language } from '~/domain/Language'
 
 type errors = {
     name: string
@@ -25,17 +24,14 @@ export class EntityValidationErrors {
     }
 
     private _buildErrors(validationErrors: ClassValidationError[]): void {
-        // TODO: Do not hardcode language
-        const language = Language['EN']
-
-        validationErrors.forEach(validationError => {
+        validationErrors.forEach((validationError) => {
             const errors: errors = []
 
             for (const key in validationError.constraints) {
                 const errorCode: any = validationError.constraints[key]
                 errors.push({
                     name: errorCode,
-                    message: ExceptionMessagesTranslations[language][ExceptionCode[errorCode]]
+                    message: ExceptionMessagesTranslations[ExceptionCode[errorCode]]
                 })
             }
 

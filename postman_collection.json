@@ -11,19 +11,13 @@
 				"method": "POST",
 				"header": [],
 				"body": {
-					"mode": "urlencoded",
-					"urlencoded": [
-						{
-							"key": "email",
-							"value": "johndoe@example.com",
-							"type": "text"
-						},
-						{
-							"key": "password",
-							"value": "Secure123",
-							"type": "text"
+					"mode": "raw",
+					"raw": "{\n\t\"email\": \"johndoe@example.com\",\n\t\"password\": \"Secure123\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
 						}
-					]
+					}
 				},
 				"url": {
 					"raw": "{{base-url}}/auth",
@@ -46,44 +40,18 @@
 						"key": "Content-Type",
 						"name": "Content-Type",
 						"value": "application/x-www-form-urlencoded",
-						"type": "text"
+						"type": "text",
+						"disabled": true
 					}
 				],
 				"body": {
-					"mode": "urlencoded",
-					"urlencoded": [
-						{
-							"key": "email",
-							"value": "johndoe@example.com",
-							"type": "text"
-						},
-						{
-							"key": "password",
-							"value": "Secure123",
-							"type": "text"
-						},
-						{
-							"key": "name",
-							"value": "John",
-							"type": "text"
-						},
-						{
-							"key": "birthdate",
-							"value": "01-07-1994",
-							"type": "text"
-						},
-						{
-							"key": "gender",
-							"value": "male",
-							"type": "text"
-						},
-						{
-							"key": "",
-							"value": "",
-							"type": "text",
-							"disabled": true
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"johndoe@example.com\",\n    \"password\": \"Secure123\",\n    \"name\": \"John\",\n    \"birthdate\": \"01-07-1994\",\n    \"gender\": \"man\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
 						}
-					]
+					}
 				},
 				"url": {
 					"raw": "{{base-url}}/users",
@@ -98,25 +66,7 @@
 			"response": []
 		},
 		{
-			"name": "am-i-logged-in",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "{{base-url}}/auth/am-i-logged-in",
-					"host": [
-						"{{base-url}}"
-					],
-					"path": [
-						"auth",
-						"am-i-logged-in"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "all users",
+			"name": "users",
 			"request": {
 				"method": "GET",
 				"header": [],
@@ -133,7 +83,7 @@
 			"response": []
 		},
 		{
-			"name": "logout",
+			"name": "auth/logout",
 			"request": {
 				"method": "GET",
 				"header": [],
@@ -151,12 +101,37 @@
 			"response": []
 		},
 		{
-			"name": "get user",
+			"name": "users/:id",
 			"request": {
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": ""
+					"raw": "{{base-url}}/users/1",
+					"host": [
+						"{{base-url}}"
+					],
+					"path": [
+						"users",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "users/me",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base-url}}/users/me",
+					"host": [
+						"{{base-url}}"
+					],
+					"path": [
+						"users",
+						"me"
+					]
 				}
 			},
 			"response": []

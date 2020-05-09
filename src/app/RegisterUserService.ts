@@ -22,7 +22,7 @@ export class RegisterUserService {
     }
 
     async _checkForDuplicates(user: User) {
-        const existingEmail = await this.userRepository.fetch({ email: user.email })
+        const existingEmail = await this.userRepository.find({ email: user.email })
         if (existingEmail) throw new DuplicateEntryException<User>(user, user.email)
     }
 }

@@ -13,12 +13,12 @@ export class AuthenticateUserService {
             throw new Exception(ExceptionCode.BAD_REQUEST)
         }
 
-        const user = await this.userRepository.fetch({ select: ['password'], where: { email } })
+        const user = await this.userRepository.find({ select: ['id', 'password'], where: { email } })
 
         if (!user || !bcrypt.compare(password, user.password)) {
             throw new Exception(ExceptionCode.BAD_CREDENTIALS)
         }
 
-        return true
+        return user.id
     }
 }

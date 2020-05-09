@@ -17,7 +17,7 @@ export class FakeRepositoryBase<Entity> implements IRepository<Entity> {
         return entity
     }
 
-    async fetch(conditions: any): Promise<Entity | undefined> {
+    async find(conditions: any): Promise<Entity | undefined> {
         let matchedEntity = undefined
 
         if (conditions.hasOwnProperty('where')) conditions = conditions.where
@@ -37,7 +37,7 @@ export class FakeRepositoryBase<Entity> implements IRepository<Entity> {
         return matchedEntity
     }
 
-    async fetchAll(conditions?: any): Promise<Entity[]> {
+    async findAll(conditions?: any): Promise<Entity[]> {
         if (conditions) {
             let matchedEntities: Entity[] = []
             this.entities.forEach((entity: any) => {

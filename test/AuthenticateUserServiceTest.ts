@@ -18,10 +18,10 @@ describe('authenticate()', () => {
         const sut = new AuthenticateUserService(userRepository)
 
         // Act
-        const authSuccess = await sut.authenticate(user.email, userBuilder.password)
+        const authResponse = await sut.authenticate(user.email, userBuilder.password)
 
         // Assert
-        expect(authSuccess).toBe(true)
+        expect(authResponse).toBe(user.id)
     })
 
     it('throws bad credentials error when credentials are wrong', async () => {
