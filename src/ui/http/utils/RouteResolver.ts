@@ -17,10 +17,10 @@ export const RouteResolver = (method: any) => (req: Http.Request, res: Http.Resp
 
 const _processPromiseResponse = (promise: Promise<any>, sender: ResponseSender) => {
     promise
-        .then(res => {
+        .then((res) => {
             sender.send(new ResponseTemplate(ResponseStatus.success, res))
         })
-        .catch(error => {
+        .catch((error) => {
             sender.send(ReponseErrorHandler.generateResponse(error))
         })
 }

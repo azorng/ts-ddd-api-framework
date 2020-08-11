@@ -1,21 +1,24 @@
-import { FakeUserRepository } from 'test/fakes/repositories/FakeUserRepository'
 import { UserBuilder } from 'test/builders/UserBuilder'
 import { AuthenticateUserService } from '~/app/AuthenticateUserService'
 import { Exception } from '~/domain/exceptions/Exception'
 import { ExceptionCode } from '~/domain/exceptions/ExceptionMessages'
 import { initTestSetup } from 'test/setup/InitTestSetup'
+import { mock, instance, verify, when, anything, deepEqual } from 'ts-mockito'
+import { UserRepository } from '~/infra/repositories/UserRepository'
 
 beforeAll(() => {
     initTestSetup()
 })
 
 describe('authenticate()', () => {
-    it('returns true when credentials are right', async () => {
+    it('should return id if credentials are right', async () => {
         // Arrange
         const userBuilder = new UserBuilder()
         const user = userBuilder.withHashedPassword().build()
-        const userRepository = new FakeUserRepository([user])
-        const sut = new AuthenticateUserService(userRepository)
+        const userRepository = mock(UserRepository)
+        const sut = new AuthenticateUserService(instance(userRepository))
+
+        when(userRepository.getSensitiveDataByEmail(user.email)).thenResolve(user)
 
         // Act
         const authResponse = await sut.authenticate(user.email, userBuilder.password)
@@ -28,8 +31,10 @@ describe('authenticate()', () => {
         // Arrange
         const userBuilder = new UserBuilder()
         const user = userBuilder.withHashedPassword().build()
-        const userRepository = new FakeUserRepository([user])
-        const sut = new AuthenticateUserService(userRepository)
+        const userRepository = mock(UserRepository)
+        const sut = new AuthenticateUserService(instance(userRepository))
+
+        when(userRepository.getSensitiveDataByEmail(user.email)).thenResolve(user)
 
         // Act
         let exception
@@ -47,9 +52,8 @@ describe('authenticate()', () => {
     it('throws bad credentials error when user not found', async () => {
         // Arrange
         const userBuilder = new UserBuilder()
-        const user = userBuilder.withHashedPassword().build()
-        const userRepository = new FakeUserRepository([user])
-        const sut = new AuthenticateUserService(userRepository)
+        const userRepository = mock(UserRepository)
+        const sut = new AuthenticateUserService(instance(userRepository))
 
         // Act
         let exception

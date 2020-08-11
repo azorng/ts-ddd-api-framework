@@ -1,4 +1,4 @@
-type ExceptionMessagesTranslation = { [key in ExceptionCode | string]: string }
+type ExceptionMessages = { [key in ExceptionCode | string]: string }
 
 export enum ExceptionCode {
     BAD_CREDENTIALS,
@@ -11,7 +11,7 @@ export enum ExceptionCode {
     NO_SESSION
 }
 
-export const ExceptionMessagesTranslations: ExceptionMessagesTranslation = {
+export const ExceptionMessages: ExceptionMessages = {
     [ExceptionCode.BAD_CREDENTIALS]: 'Incorrect email or password.',
     [ExceptionCode.DUPLICATE_ENTRY]: 'Duplicated record.',
     [ExceptionCode.ENTITY_NOT_FOUND]: 'Entity not found.',

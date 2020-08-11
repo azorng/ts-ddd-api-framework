@@ -14,4 +14,4 @@ const connectionConfig: ConnectionOptions = {
     entities: [path.join(config.ROOT_PATH, '/domain/entities/*')]
 }
 
-export const CreateDatabaseConnection = async () => createConnection(connectionConfig)
+export const CreateDatabaseConnection = () => createConnection(connectionConfig)

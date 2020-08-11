@@ -1,9 +1,9 @@
-import { getRepository, Repository } from 'typeorm'
-import { IRepository } from '~/infra/repositories/IRepository'
+import { getRepository, Repository as ormRepo, EntityTarget } from 'typeorm'
 
-export class RepositoryBase<Entity> implements IRepository<Entity> {
-    repository: Repository<Entity>
-    constructor(entity: any) {
+export class RepositoryBase<Entity> {
+    protected repository: ormRepo<Entity>
+
+    constructor(entity: EntityTarget<Entity>) {
         this.repository = getRepository(entity)
     }
 
@@ -13,6 +13,10 @@ export class RepositoryBase<Entity> implements IRepository<Entity> {
 
     async save(entity: Entity): Promise<Entity> {
         return this.repository.save(entity)
+    }
+
+    async delete(entities: Entity[]): Promise<void> {
+        this.repository.delete(entities)
     }
 
     async find(conditions: object): Promise<Entity | undefined> {

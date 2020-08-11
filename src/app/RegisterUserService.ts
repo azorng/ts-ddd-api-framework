@@ -1,4 +1,3 @@
-import { IUserRepository } from '~/infra/repositories/IUserRepository'
 import { User } from '~/domain/entities/User'
 import { bcrypt } from '~/infra/crypto/bcrypt'
 import { DuplicateEntryException } from '~/infra/exceptions/DuplicateEntryException'
@@ -7,7 +6,7 @@ import { Event } from '~/app/Events'
 import { UserRepository } from '~/infra/repositories/UserRepository'
 
 export class RegisterUserService {
-    constructor(private userRepository: IUserRepository = new UserRepository()) {}
+    constructor(private userRepository = new UserRepository()) {}
 
     async register(user: User) {
         await user.validate()

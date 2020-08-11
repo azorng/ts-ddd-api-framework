@@ -1,5 +1,5 @@
 import { CreateDatabaseConnection } from '~/infra/database/typeorm/OrmConnection'
 
-export const InitInfra = async () => {
-    await CreateDatabaseConnection()
+export const InitInfra = () => {
+    CreateDatabaseConnection()
 }

@@ -1,5 +1,6 @@
 import { User } from '~/domain/entities/User'
 import { bcrypt } from '~/infra/crypto/bcrypt'
+import { Uuid } from '~/infra/crypto/uuid'
 
 export class UserBuilder {
     user: User
@@ -10,11 +11,10 @@ export class UserBuilder {
 
         this.user = new User({
             email: 'johnny@umbrella.co',
-            password: this.password,
-            name: 'Johnny',
-            gender: 'male',
-            birthdate: new Date(),
+            password: this.password
         })
+
+        this.user.uuid = Uuid.generate()
     }
 
     withHashedPassword() {

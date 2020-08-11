@@ -5,6 +5,7 @@ import { session } from '~/ui/http/middlewares/Session'
 import helmet from 'helmet'
 import { env } from '~/config'
 import cors from 'cors'
+import Logger from '~/infra/Logger'
 
 export class Server {
     public static start() {
@@ -19,6 +20,6 @@ export class Server {
             .use(session)
             .use(bodyParser.json())
             .use('/', Router())
-            .listen(env.PORT, () => console.log(`Server listening on port ${env.PORT}`))
+            .listen(env.PORT, () => Logger.log(`Server listening on port ${env.PORT}`))
     }
 }
