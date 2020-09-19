@@ -1,6 +1,6 @@
-import { Exception } from '~/domain/exceptions/Exception'
+import { Exception } from '~/infra/exceptions/Exception'
+import { ExceptionCode } from '~/app/exceptions/ExceptionCodes'
 import { _ } from '~/lib'
-import { ExceptionCode } from '~/domain/exceptions/ExceptionMessages'
 
 export class DuplicateEntryException<Entity> extends Exception {
     property: string

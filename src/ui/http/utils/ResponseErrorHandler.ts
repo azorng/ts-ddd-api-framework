@@ -1,20 +1,21 @@
 import { ResponseTemplate, ResponseStatus } from '~/ui/http/utils/ResponseTemplate'
-import { Exception } from '~/domain/exceptions/Exception'
-import { ExceptionMessages, ExceptionCode } from '~/domain/exceptions/ExceptionMessages'
+import { Exception } from '~/infra/exceptions/Exception'
 import Logger from '~/infra/Logger'
+import { ExceptionCode } from '~/app/exceptions/ExceptionCodes'
 
-export class ReponseErrorHandler {
+export class ResponseErrorHandler {
     static generateResponse(error: any) {
         let response: ResponseTemplate
         if (error instanceof Exception) {
-            const exceptionCode: any = error.name
-
-            error.message = ExceptionMessages[ExceptionCode[exceptionCode]]
-
-            response = new ResponseTemplate(ResponseStatus.fail, error)
+            response = new ResponseTemplate(ResponseStatus.fail, error, error.statusCode)
         } else {
-            response = new ResponseTemplate(ResponseStatus.error, 'Unexpected Error')
-            Logger.error('Undefined error', error)
+            const internalError = new Exception(ExceptionCode.INTERNAL_ERROR)
+            response = new ResponseTemplate(
+                ResponseStatus.error,
+                internalError,
+                internalError.statusCode
+            )
+            Logger.jsError(error)
         }
         return response
     }

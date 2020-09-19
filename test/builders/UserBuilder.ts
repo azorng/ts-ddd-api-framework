@@ -14,7 +14,7 @@ export class UserBuilder {
             password: this.password
         })
 
-        this.user.uuid = Uuid.generate()
+        this.user.id = 112
     }
 
     withHashedPassword() {

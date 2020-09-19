@@ -1,10 +1,16 @@
 export class ResponseTemplate {
     status: ResponseStatus
     data: any
+    #statusCode: number
 
-    constructor(status: ResponseStatus, data: any) {
+    constructor(status: ResponseStatus, data: any, statusCode: number) {
         this.status = status
         this.data = data
+        this.#statusCode = statusCode
+    }
+
+    get code() {
+        return this.#statusCode
     }
 }
 

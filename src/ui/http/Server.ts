@@ -6,6 +6,7 @@ import helmet from 'helmet'
 import { env } from '~/config'
 import cors from 'cors'
 import Logger from '~/infra/Logger'
+import { ErrorHandler } from '~/ui/http/middlewares/ErrorHandler'
 
 export class Server {
     public static start() {
@@ -20,6 +21,8 @@ export class Server {
             .use(session)
             .use(bodyParser.json())
             .use('/', Router())
+            .use(ErrorHandler[404])
+            .use(ErrorHandler.handle)
             .listen(env.PORT, () => Logger.log(`Server listening on port ${env.PORT}`))
     }
 }
