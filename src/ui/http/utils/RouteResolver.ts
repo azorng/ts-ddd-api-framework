@@ -1,44 +1,46 @@
 import { ResponseSender } from '~/ui/http/utils/ResponseSender'
 import { ResponseTemplate, ResponseStatus } from '~/ui/http/utils/ResponseTemplate'
-import { ReponseErrorHandler } from '~/ui/http/utils/ResponseErrorHandler'
+import { ResponseErrorHandler } from '~/ui/http/utils/ResponseErrorHandler'
 import { _ } from '~/lib'
+import { Session } from '~/infra/Session'
+import { RequiredFieldException } from '~/app/exceptions/RequiredFieldException'
 
-export const RouteResolver = (method: any) => (req: Http.Request, res: Http.Response) => {
-    const params: object = _getParams(req)
+export interface RouteSpecification {
+    required?: string[]
+    controller: any
+}
+
+export const RouteResolver = (route: RouteSpecification) => (
+    req: Http.Request,
+    res: Http.Response
+) => {
+    const params = _getParams(req)
     const sender = new ResponseSender(res)
 
-    if (_isValidMethod(method, params)) {
-        const methodResult = _executeMethod(method, params)
-        _processPromiseResponse(methodResult, sender)
-    } else {
-        sender.sendError('Bad Request')
-    }
-}
+    Session.namespace.run(async () => {
+        try {
+            _validateParams(route.required, params)
 
-const _processPromiseResponse = (promise: Promise<any>, sender: ResponseSender) => {
-    promise
-        .then((res) => {
-            sender.send(new ResponseTemplate(ResponseStatus.success, res))
-        })
-        .catch((error) => {
-            sender.send(ReponseErrorHandler.generateResponse(error))
-        })
-}
+            Session.auth = req.session?.auth
+            Session.express = req.session
 
-const _executeMethod = (method: any, params: object) => method(params)
+            const result = await route.controller(params)
+            sender.send(new ResponseTemplate(ResponseStatus.success, result, 200))
+        } catch (e) {
+            sender.send(ResponseErrorHandler.generateResponse(e))
+        }
+    })
+}
 
 const _getParams = (req: Http.Request) => {
-    // Set params from route variables
-    let params = !_.isEmptyObject(req.params)
-        ? req.params
-        : !_.isEmptyObject(req.body)
-        ? req.body
-        : {}
-
-    // Inject additional params
-    params.$session = req.session
-
-    return params
+    return req.method === 'POST' ? req.body : req.params
 }
 
-const _isValidMethod = (method: any, params: object) => !(!params && method.length > 0)
+const _validateParams = (requiredParams: string[] | undefined, actualParams: any) => {
+    if (!requiredParams) return
+    for (const param of requiredParams) {
+        if (param && actualParams[param] === undefined) {
+            throw new RequiredFieldException(param)
+        }
+    }
+}

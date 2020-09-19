@@ -1,6 +1,6 @@
 import { validate } from 'class-validator'
-import { EntityValidationErrors } from '~/domain/exceptions/EntityValidationError'
-import { EntityValidationException } from '~/domain/exceptions/EntityValidationException'
+import { EntityValidationException } from '~/app/exceptions/EntityValidationException'
+import { EntityValidationErrors } from '~/infra/exceptions/EntityValidationError'
 
 export class EntityBase {
     async validate() {

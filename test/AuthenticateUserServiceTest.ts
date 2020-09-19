@@ -1,30 +1,66 @@
 import { UserBuilder } from 'test/builders/UserBuilder'
-import { AuthenticateUserService } from '~/app/AuthenticateUserService'
-import { Exception } from '~/domain/exceptions/Exception'
-import { ExceptionCode } from '~/domain/exceptions/ExceptionMessages'
-import { initTestSetup } from 'test/setup/InitTestSetup'
+import { UserAuthenticationService } from '~/app/UserAuthenticationService'
+import { Exception } from '~/infra/exceptions/Exception'
 import { mock, instance, verify, when, anything, deepEqual } from 'ts-mockito'
 import { UserRepository } from '~/infra/repositories/UserRepository'
+import { Session } from '~/infra/Session'
+import { FakeSessionNamespace } from 'test/fakes/FakeSession'
+import { ExceptionCode } from '~/app/exceptions/ExceptionCodes'
 
-beforeAll(() => {
-    initTestSetup()
+beforeEach(() => {
+    Session.namespace = new FakeSessionNamespace()
 })
 
-describe('authenticate()', () => {
-    it('should return id if credentials are right', async () => {
+describe('requireAuth()', () => {
+    it('should throw exception when there is no auth session', async () => {
+        // Arrange
+        let exception
+
+        // Act
+        try {
+            UserAuthenticationService.requireAuth()
+        } catch (e) {
+            exception = e
+        }
+
+        // Assert
+        expect(ExceptionCode[exception.name]).toBe(ExceptionCode.NO_SESSION)
+    })
+
+    it('should return user id when there is a session', async () => {
         // Arrange
         const userBuilder = new UserBuilder()
         const user = userBuilder.withHashedPassword().build()
         const userRepository = mock(UserRepository)
-        const sut = new AuthenticateUserService(instance(userRepository))
+        when(userRepository.getSensitiveDataByEmail(user.email)).thenResolve(user)
+        await new UserAuthenticationService(instance(userRepository)).authenticate(
+            user.email,
+            userBuilder.password
+        )
+
+        // Act
+        const userId = UserAuthenticationService.requireAuth()
+
+        // Assert
+        expect(userId).toBe(user.id)
+    })
+})
+
+describe('authenticate()', () => {
+    it('should set session if credentials are right', async () => {
+        // Arrange
+        const userBuilder = new UserBuilder()
+        const user = userBuilder.withHashedPassword().build()
+        const userRepository = mock(UserRepository)
+        const sut = new UserAuthenticationService(instance(userRepository))
 
         when(userRepository.getSensitiveDataByEmail(user.email)).thenResolve(user)
 
         // Act
-        const authResponse = await sut.authenticate(user.email, userBuilder.password)
+        await sut.authenticate(user.email, userBuilder.password)
 
         // Assert
-        expect(authResponse).toBe(user.id)
+        expect(Session.auth).toBe(user.id)
     })
 
     it('throws bad credentials error when credentials are wrong', async () => {
@@ -32,7 +68,7 @@ describe('authenticate()', () => {
         const userBuilder = new UserBuilder()
         const user = userBuilder.withHashedPassword().build()
         const userRepository = mock(UserRepository)
-        const sut = new AuthenticateUserService(instance(userRepository))
+        const sut = new UserAuthenticationService(instance(userRepository))
 
         when(userRepository.getSensitiveDataByEmail(user.email)).thenResolve(user)
 
@@ -53,7 +89,7 @@ describe('authenticate()', () => {
         // Arrange
         const userBuilder = new UserBuilder()
         const userRepository = mock(UserRepository)
-        const sut = new AuthenticateUserService(instance(userRepository))
+        const sut = new UserAuthenticationService(instance(userRepository))
 
         // Act
         let exception

@@ -3,6 +3,18 @@ import { AuthController } from '~/ui/http/controllers/AuthController'
 
 export default (api: Http.Router): Http.Router => {
     return api
-        .post('/auth', RouteResolver(AuthController.authenticate))
-        .get('/auth/log-out', RouteResolver(AuthController.logOut))
+        .post(
+            '/auth',
+            RouteResolver({
+                required: ['email', 'password'],
+                controller: AuthController.authenticate
+            })
+        )
+
+        .get(
+            '/auth/log-out',
+            RouteResolver({
+                controller: AuthController.logOut
+            })
+        )
 }

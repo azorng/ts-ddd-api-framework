@@ -1,12 +1,11 @@
-import { AuthenticateUserService } from '~/app/AuthenticateUserService'
+import { UserAuthenticationService } from '~/app/UserAuthenticationService'
 
 export class AuthController {
-    static async authenticate({ email, password, $session }: any) {
-        const userId = await new AuthenticateUserService().authenticate(email, password)
-        $session.auth = userId
+    static async authenticate({ email, password }: any) {
+        await new UserAuthenticationService().authenticate(email, password)
     }
 
-    static async logOut({ $session }: any) {
-        $session.destroy()
+    static async logOut() {
+        new UserAuthenticationService().logOut()
     }
 }

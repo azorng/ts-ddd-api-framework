@@ -1,5 +1,4 @@
 import { ValidationError as ClassValidationError } from 'class-validator'
-import { ExceptionMessages, ExceptionCode } from '~/domain/exceptions/ExceptionMessages'
 
 type errors = {
     name: string
@@ -29,10 +28,7 @@ export class EntityValidationErrors {
 
             for (const key in validationError.constraints) {
                 const errorCode: any = validationError.constraints[key]
-                errors.push({
-                    name: errorCode,
-                    message: ExceptionMessages[ExceptionCode[errorCode]]
-                })
+                errors.push(errorCode)
             }
 
             this.errors.push({

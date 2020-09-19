@@ -1,10 +1,11 @@
 import { bcrypt } from '~/infra/crypto/bcrypt'
-import { Exception } from '~/domain/exceptions/Exception'
-import { ExceptionCode } from '~/domain/exceptions/ExceptionMessages'
+import { Exception } from '~/infra/exceptions/Exception'
+import { ExceptionCode } from '~/app/exceptions/ExceptionCodes'
 import { _ } from '~/lib'
 import { UserRepository } from '~/infra/repositories/UserRepository'
+import { Session } from '~/infra/Session'
 
-export class AuthenticateUserService {
+export class UserAuthenticationService {
     constructor(private userRepository = new UserRepository()) {}
 
     async authenticate(email: string, password: string) {
@@ -18,6 +19,18 @@ export class AuthenticateUserService {
             throw new Exception(ExceptionCode.BAD_CREDENTIALS)
         }
 
-        return user.id
+        Session.auth = user.id
+    }
+
+    async logOut() {
+        Session.express?.destroy(() => {})
+    }
+
+    static requireAuth() {
+        if (!Session.auth) {
+            throw new Exception(ExceptionCode.NO_SESSION)
+        }
+
+        return Session.auth
     }
 }
