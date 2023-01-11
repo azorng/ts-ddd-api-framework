@@ -18,7 +18,7 @@
   "license": "ISC",
   "dependencies": {
     "bcryptjs": "2.4.3",
-    "class-validator": "0.12.2",
+    "class-validator": "0.14.0",
     "cls-hooked": "4.2.2",
     "connect-redis": "5.0.0",
     "cors": "2.8.5",
